@@ -1,15 +1,6 @@
 from typing import Any
 
 
-class SimpleSingleton(object):
-    """Make all instances the same object."""
-
-    def __new__(cls) -> 'SimpleSingleton':
-        if not hasattr(cls, '_instance'):
-            cls._instance = super().__new__(cls)
-        return cls._instance
-
-
 class Borg(object):
     """Borg class making class attributes global.
     Safe the same state of all instances but instances are all different."""
@@ -34,13 +25,6 @@ class BorgSingleton(Borg):
         # Return the attribute dict for printing
         return str(self._shared_state)
 
-# Instantiate the same singleton object
-s_one = SimpleSingleton()
-s_two = SimpleSingleton()
-
-print(id(s_one))
-print(id(s_two))
-print(s_one is s_two)
 
 # Create a singleton object and add out first acronym
 x = BorgSingleton(HTTP='Hyper Text Transfer Protocol')
