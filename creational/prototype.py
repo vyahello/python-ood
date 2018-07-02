@@ -1,24 +1,24 @@
 import copy
-from typing import Any
+from typing import Any, Dict
 
 
 class Car(object):
     """A car object."""
 
     def __init__(self) -> None:
-        self._name = 'Skylar'
-        self._color = 'Red'
-        self._options = 'Ex'
+        self._name: str = 'Skylar'
+        self._color: str = 'Red'
+        self._options: str = 'Ex'
 
     def __str__(self) -> str:
         return '{} | {} | {}'.format(self._name, self._color, self._options)
 
 
-class Prototype:
+class Prototype(object):
     """A prototype object."""
 
-    def __init__(self):
-        self._objects = {}
+    def __init__(self) -> None:
+        self._objects: Dict[...] = {}
 
     def register_object(self, name: str, obj: Car) -> None:
         """Register an object."""
