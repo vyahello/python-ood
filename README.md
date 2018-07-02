@@ -10,9 +10,9 @@ Describes most useful python design patterns.
   - [Builder](#builder)
   - [Prototype](#prototype)
 - [Structural](#structural)
-  - [Decorator function](#)
-  - [Decorator class](#)
-  - [Proxy](#)
+  - [Decorator function](#decorator-function)
+  - [Decorator class](#decorator-class)
+  - [Proxy](#proxy)
 - [Behavioral](#behavioral)
 
 ## Creational
@@ -469,9 +469,174 @@ print(car1)
 ## Structural
 Establish useful relationships between software components. Here inheritance is often used.
 ### Decorator function
+Add new feature to an existing object. Supports dynamic changes.
+- Exercise:
+  - Add additonal message to an existing function.
+```python
+from functools import wraps
+from typing import Callable
 
+
+def make_blink(function: Callable[[str], str]) -> Callable[..., str]:
+    """Define the decorator."""
+
+    # This makes the decorator transperant in terms of its name and docstring
+    @wraps(function)
+
+    # Define the inner function
+    def decorator(*args, **kwargs) -> str:
+
+        # Return value of the function being decorated
+        ret = function(*args, **kwargs)
+
+        # Add new functionality to the function being decorated
+        return f"<blink>{ret}</blink>"
+
+    return decorator
+
+@make_blink
+def hello_world(name: str) -> str:
+    """Original function!"""
+
+    return f"Hello World said {name}!"
+
+
+# Decorated function
+print(hello_world('James'))
+
+# Check if the function name is still the same name of the function being decorated
+print(hello_world.__name__)
+
+# Check if the docstring is still the same name of the function being decorated
+print(hello_world.__doc__)
+```
 ### Decorator class
+```python
+from abc import ABC, abstractmethod
+
+
+class Int(ABC):
+    """Abstraction of and `int` object"""
+
+    @abstractmethod
+    def value(self) -> int:
+        pass
+
+
+class ToFloat(object):
+    """Decorator object converts `int` datatype into `float` datatype."""
+
+    def __init__(self, int_obj: Int) -> None:
+        self._int_obj: Int = int_obj
+
+    def value(self) -> float:
+        return float(self._int_obj.value())
+
+
+class IntA(Int):
+    """Int object A."""
+
+    def __init__(self, int_a: int) -> None:
+        self._int_a: int = int_a
+
+    def value(self) -> int:
+        return self._int_a
+
+
+class IntB(Int):
+    """Int object B."""
+
+    def __init__(self, int_b: int) -> None:
+        self._int_b: int = int_b
+
+    def value(self) -> int:
+        return self._int_b
+
+
+class SumFloat:
+    """Sum `float` numbers."""
+
+    def __init__(self, int_a: Int, int_b: Int) -> None:
+        self._int_a: ToFloat = ToFloat(int_a)
+        self._int_b: ToFloat = ToFloat(int_b)
+
+    def value(self) -> float:
+        return self._int_a.value() + self._int_b.value()
+
+
+int_a: Int = IntA(5)
+int_b: Int = IntB(6)
+
+sum_f = SumFloat(int_a, int_b)
+print(sum_f.value())
+
+```
 ### Proxy
+Postpone object creation unless it is necessary. Object is too expensive (resource intensive) to create that's why we have to create it if it is needed.
+- Participants:
+  - Producer
+  - Artist
+  - Guest
+- Clients interact with a Proxy. Proxy is responsible for creating the resource intensive objects.
+```python
+import time
+
+
+class Producer(object):
+    """Define the resource-intensive object to instantiate."""
+
+    def produce(self):
+        print('producer is working hard')
+
+    def meet(self):
+        print('Producer has time to meet you now')
+
+
+class Proxy(object):
+    """Define the less resource-intensive object to instantiate as a middleman."""
+
+    def __init__(self):
+        self._occupied: bool = False
+
+    @property
+    def occupied(self) -> bool:
+        return self._occupied
+
+    @occupied.setter
+    def occupied(self, state: bool) -> None:
+        self._occupied = state
+
+    def produce(self) -> None:
+        """Check if producer is available."""
+
+        print('Artist checking if producer is available...')
+
+        if not self.occupied:
+            # If producer is available, create a producer object!
+            producer = Producer()
+            time.sleep(2)
+
+            # Make the producer meet the guest!
+            producer.meet()
+        else:
+            # Otherwise don't instantiate a producer
+            time.sleep(2)
+            print('Producer is busy!')
+
+
+# Instantiate a Proxy
+proxy = Proxy()
+
+# Make the proxy: Artist produce until Producer is available
+proxy.produce()
+
+# Change the state to 'occupied'
+proxy.occupied = True
+
+# Make the Producer produce
+proxy.produce()
+
+```
 ## Behavioral
 Best practices of objects interaction. Methods and signatures are often used.
 ## Contributing
