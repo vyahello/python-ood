@@ -19,7 +19,7 @@ Describes most useful python design patterns.
 - [Behavioral](#behavioral)
   - [Observer](#observer)
   - [Visitor](#visitor)
-  - [Iterator]()
+  - [Iterator](#iterator)
   - [Strategy]
   - [Chain of responsibility]
 
@@ -1036,7 +1036,7 @@ c1.notify()
 ### Visitor
 Add new features to existing hierarchy without changing it. Add new operations to existing classes dynamically.
 Exercise:
-  - House 'class':
+  - House class:
     - HVAC specialist: Visitor type 1
     - Electrician: Visitor type 2
 ```python
@@ -1120,6 +1120,39 @@ home.accept(hv)
 
 # Lets the house accept the electrician specialist and work on the house by invoking the visit() method
 home.accept(e)
+
+```
+### Iterator
+Composite pattern is related to iterator pattern.
+- Exercise:
+  - Our custom iterator based on a build-in python iterator: `zip()`.
+  - Will iterate over a certain point baed on client input.
+```python
+from typing import Iterator, Tuple
+
+
+def count_to(count: int) -> Iterator[Tuple[int, str]]:
+    """Our iterator implementation."""
+
+    # Our list
+    number_in_german = ['einn', 'zwei', 'drei', 'veir', 'funf']
+
+    # Our built-in iterator
+    # Creates a tuple as (1, 'eins')
+    iterator = zip(range(1, count + 1), number_in_german)
+
+    # Iterate through our iterable list
+    # Extract the German numbers
+    # Out them in a generator called number
+    for position, number in iterator:
+
+        # Return a 'generator' containing numbers in German
+        yield position, number
+
+
+# Let's test the generator returned by our iterator
+for num in count_to(3):
+    print("{} in german is {}".format(*num))
 
 ```
 ## Contributing
