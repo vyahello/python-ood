@@ -21,7 +21,7 @@ Describes most useful python design patterns.
   - [Visitor](#visitor)
   - [Iterator](#iterator)
   - [Strategy](#strategy)
-  - [Chain of responsibility]
+  - [Chain of responsibility](#chain-of-responsibility)
 
 ## Creational
 Used to create objects in a systematic way. Supports flexibility and different subtypes of objects from the same class at runtime. Here polymorphism is often used.
@@ -1214,6 +1214,82 @@ s1.execute()
 s2 = Strategy(func=strategy_two)
 s2.name = 'Strategy two'
 s2.execute()
+```
+### Chain of responsibility
+Decouple responsibility. Composite is related to this design pattern.
+- Exercise:
+  - Integer value
+  - Handlers
+    - Find out its range
+- Participants:
+  - Abstract handler
+    - Successor
+  - Concrete Handler
+    - Checks if it can handle the request
+```python
+from abc import abstractmethod
+from typing import List
+
+
+class Handler(object):
+    """Abstract handler."""
+
+    def __init__(self, successor: 'Handler') -> None:
+        # Define who is the next handler
+        self._successor: Handler = successor
+
+    def handler(self, request: int) -> None:
+        # If handled, stop here otherwise, keep going
+
+        if not self.handle(request):
+            self._successor.handler(request)
+
+    @abstractmethod
+    def handle(self, request: int) -> None:
+        pass
+
+
+class ConcreteHandler1(Handler):
+    """Concrete handler 1."""
+
+    def handle(self, request: int) -> bool:
+        if 0 < request <= 10:
+            print("Request {} handled in handler 1".format(request))
+            return True  # Indicated that request has been handled
+
+
+class DefaultHandler(Handler):
+    """Default handler."""
+
+    def handle(self, request: int) -> bool:
+        """If there is no handler available."""
+        # No condition as this is a default handler
+        print("End of chain, no handler for {}".format(request))
+        return True # Indicated that request has been handled
+
+
+class Client(object):
+    """Using handlers."""
+
+    def __init__(self) -> None:
+        self._handler: Handler = ConcreteHandler1(DefaultHandler(None))
+
+        # Create handlers and use them in a sequence you want
+        # Note that the default handler has no successor
+
+    def delegate(self, requests: List[int]) -> None:  # Send a request one at a time for handlers to handle
+        for request in requests:
+            self._handler.handler(request)
+
+
+# Create a client
+c = Client()
+
+# Create requests
+requests = [2, 5, 30]
+
+# Send the request
+c.delegate(requests)
 ```
 ## Contributing
 
