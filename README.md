@@ -16,13 +16,18 @@ Describes most useful python design patterns.
   - [Adapter](#adapter)
   - [Composite](#composite)
   - [Bridge](#bridge)
+  - [Facade](#facade)
 - [Behavioral](#behavioral)
   - [Observer](#observer)
   - [Visitor](#visitor)
   - [Iterator](#iterator)
   - [Strategy](#strategy)
   - [Chain of responsibility](#chain-of-responsibility)
-
+- [Other qualities](#other-qualities)
+  - [Completeness](#completeness)
+  - [Correctness](#correctness)
+  - [Coupling](#)
+  - [Cohesion](#)
 ## Creational
 Used to create objects in a systematic way. Supports flexibility and different subtypes of objects from the same class at runtime. Here polymorphism is often used.
 ### Factory method
@@ -926,6 +931,116 @@ circle2: Circle = DrawCircle(3, 4, 6, DrawAPITwo())
 circle2.draw()
 
 ```
+### Facade
+The Facade pattern is a way to provide a simpler unified interface to a more complex system. It provides an easier way to access functions of the underlying system by providing a single entry point.
+```python
+from abc import ABC, abstractmethod
+import time
+from typing import Iterator, Tuple
+
+_sleep: float = 0.2
+
+
+class TestCase(ABC):
+    """Abstraction provides `run()` interface."""
+
+    @abstractmethod
+    def run(self) -> None:
+        """Abstract interface that has to be reused by child objects."""
+        pass
+
+
+# Complex Parts
+class TestCase1(TestCase):
+    """Concrete test case."""
+
+    def __init__(self, name: str) -> None:
+        self._name: str = name
+
+    def run(self) -> None:
+        print('{:#^20}'.format(self._name))
+        time.sleep(_sleep)
+        print("Setting up")
+        time.sleep(_sleep)
+        print("Running test")
+        time.sleep(_sleep)
+        print("Tearing down")
+        time.sleep(_sleep)
+        print("Test Finished\n")
+
+
+class TestCase2(TestCase):
+    """Concrete test case."""
+
+    def __init__(self, name: str) -> None:
+        self._name: str = name
+
+    def run(self) -> None:
+        print('{:#^20}'.format(self._name))
+        time.sleep(_sleep)
+        print("Setting up")
+        time.sleep(_sleep)
+        print("Running test")
+        time.sleep(_sleep)
+        print("Tearing down")
+        time.sleep(_sleep)
+        print("Test Finished\n")
+
+
+class TestCase3(TestCase):
+    """Concrete test case."""
+
+    def __init__(self, name: str) -> None:
+        self._name: str = name
+
+    def run(self) -> None:
+        print('{:#^20}'.format(self._name))
+        time.sleep(_sleep)
+        print("Setting up")
+        time.sleep(_sleep)
+        print("Running test")
+        time.sleep(_sleep)
+        print("Tearing down")
+        time.sleep(_sleep)
+        print("Test Finished\n")
+
+
+# Facade
+class TestRunner(object):
+    """Represent simpler unified interface to run all test cases."""
+
+    def __init__(self) -> None:
+        self._tcs: Tuple[TestCase] = (TestCase1('Test Case 1'),
+                                      TestCase2('Test Case 2'),
+                                      TestCase3('Test Case 3'))
+
+    def _tests(self) -> Iterator[TestCase]:
+        yield from self._tcs
+
+    def run(self) -> None:
+        c = 0
+        tests = self._tests()
+        while c < len(self._tcs):
+            next(tests).run()
+            c += 1
+
+
+# Client
+class Client(object):
+    """Client runner."""
+
+    def __init__(self) -> None:
+        self._runner: TestRunner = TestRunner()
+
+    def run(self) -> None:
+        self._runner.run()
+
+
+if __name__ ==  '__main__':
+    client: Client = Client()
+    client.run()
+
+```
 ## Behavioral
 Best practices of objects interaction. Methods and signatures are often used.
 ### Observer
@@ -1291,6 +1406,15 @@ requests = [2, 5, 30]
 # Send the request
 c.delegate(requests)
 ```
+## Other qualities
+### Completeness
+Depends on how much the software solution meets its requirements.
+### Correctness
+Make the software without errors.
+### Coupling
+How much different elements of a software are related. If there is strong coupling changes in one element affects another. Less coupling is desirable.
+### Cohesion
+Refers to how independent the software component is. More cohesion is better.
 ## Contributing
 
 ### Setup
