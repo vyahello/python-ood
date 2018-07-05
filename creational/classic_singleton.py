@@ -7,6 +7,15 @@ class Singleton(object):
         return cls._instance
 
 
+class Singleton1(object):
+    __instance = None
+    def __new__(cls, val=None):
+        if not Singleton1.__instance:
+            Singleton1.__instance = object.__new__(cls)
+        Singleton1.__instance.val = val
+        return Singleton1.__instance
+
+
 class Foo(object):
     """Fancy object."""
     pass

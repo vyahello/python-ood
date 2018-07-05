@@ -3,6 +3,7 @@ Describes most useful python design patterns.
 
 ## Table of contents
 - [Creational](#creational)
+  - [Factory](#factory)
   - [Factory method](#factory-method)
   - [Abstract factory](#abstract-factory)
   - [Classic singleton](#classic-singleton)
@@ -30,6 +31,38 @@ Describes most useful python design patterns.
   - [Cohesion](#)
 ## Creational
 Used to create objects in a systematic way. Supports flexibility and different subtypes of objects from the same class at runtime. Here polymorphism is often used.
+### Factory
+Define an interface for creating an object but defer object instantiation to run time.
+```python
+class ShapeInterface(object):
+    def draw(self) -> None:
+        raise NotImplementedError
+
+
+class Circle(ShapeInterface):
+    def draw(self):
+        print('Circle.draw')
+
+
+class Square(ShapeInterface):
+    def draw(self):
+        print('Square.draw')
+
+
+class ShapeFactory(object):
+    @staticmethod
+    def get_shape(type: str):
+        if type == 'circle':
+            return Circle()
+        if type == 'square':
+            return Square()
+        assert 0, f'Could not find shape {type}'
+
+
+factory = ShapeFactory()
+print(factory.get_shape('circle'))
+
+```
 ### Factory method
 Factory encapsulates objects creation. Factory is an object that is specialized in creation of other objects. 
 - Benefits:  
