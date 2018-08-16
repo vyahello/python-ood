@@ -5,27 +5,39 @@ class ShapeInterface(object):
         raise NotImplementedError
 
 
+class ShapeError(Exception):
+    """Represent shape error message."""
+    
+    pass
+
+
 class Circle(ShapeInterface):
-    """Concrete subclass."""
+    """Concrete shape subclass."""
+    
     def draw(self):
         print('Circle.draw')
 
 
 class Square(ShapeInterface):
-    """Concrete subclass."""
+    """Concrete shape subclass."""
+    
     def draw(self):
         print('Square.draw')
 
 
 class ShapeFactory(object):
-    @staticmethod
-    def get_shape(type: str):
-        if type == 'circle':
+    """Concrete shape factory."""
+
+    def __init__(self, shape: str) -> None:
+        self._shape: str = shape
+
+    def get_shape(self):
+        if self._shape == 'circle':
             return Circle()
-        if type == 'square':
+        elif self._shape == 'square':
             return Square()
-        assert 0, f'Could not find shape {type}'
+        raise ShapeError('Could not find shape {shape}')
 
 
-factory = ShapeFactory()
-print(factory.get_shape('circle'))
+factory = ShapeFactory(shape='circle')
+factory.get_shape().draw()
