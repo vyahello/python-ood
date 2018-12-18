@@ -1,43 +1,47 @@
-class ShapeInterface(object):
-    """Interface that defines the method."""
+from abc import ABC, abstractmethod
 
-    def draw(self) -> None:
-        raise NotImplementedError
+
+class Shape(ABC):
+    """Interface that defines the shape."""
+
+    @abstractmethod
+    def draw(self) -> str:
+        pass
 
 
 class ShapeError(Exception):
     """Represent shape error message."""
-    
     pass
 
 
-class Circle(ShapeInterface):
+class Circle(Shape):
     """Concrete shape subclass."""
     
-    def draw(self):
-        print('Circle.draw')
+    def draw(self) -> str:
+        return 'Circle.draw'
 
 
-class Square(ShapeInterface):
+class Square(Shape):
     """Concrete shape subclass."""
     
-    def draw(self):
-        print('Square.draw')
+    def draw(self) -> str:
+        return 'Square.draw'
 
 
-class ShapeFactory(object):
+class ShapeFactory:
     """Concrete shape factory."""
 
     def __init__(self, shape: str) -> None:
         self._shape: str = shape
 
-    def get_shape(self):
+    def get_shape(self) -> Shape:
         if self._shape == 'circle':
             return Circle()
-        elif self._shape == 'square':
+        if self._shape == 'square':
             return Square()
-        raise ShapeError('Could not find shape {shape}')
+        raise ShapeError(f'Could not find shape "{self._shape}"')
 
 
 factory = ShapeFactory(shape='circle')
-factory.get_shape().draw()
+circle: Shape = factory.get_shape()  # returns our shape
+circle.draw()  # draw a circle

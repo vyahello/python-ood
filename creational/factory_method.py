@@ -31,5 +31,10 @@ class Cat(Pet):
 
 def get_pet(pet: str) -> Pet:
     """The factory method."""
+    return {
+        'dog': Dog("Hope"),
+        'cat': Cat("Faith")
+    }[pet]
 
-    return dict(dog=Dog("Hope"), cat=Cat("Faith")).get(pet)
+
+get_pet('cat')  # returns Cat class object
