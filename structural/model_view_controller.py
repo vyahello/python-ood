@@ -78,12 +78,11 @@ class ProductModel(Model):
         for item in self.products:
             yield item
 
-    def get(self, product):
+    def get(self, item):
         try:
-            return self.products[product]
+            return self.products[item]
         except KeyError as e:
             raise KeyError(str(e) + " not in the model's item list.")
-
 
 
 class ConsoleView(View):
@@ -114,9 +113,9 @@ class ConsoleView(View):
 class ItemController(Controller):
     """Concrete item controller."""
 
-    def __init__(self, model, view):
-        self._model = model
-        self._view = view
+    def __init__(self, item_model, item_view):
+        self._model = item_model
+        self._view = item_view
 
     def show_items(self):
         items = list(self._model)

@@ -2,7 +2,7 @@ import types
 from typing import Callable, Any
 
 
-class Strategy(object):
+class Strategy:
     """The strategy pattern class."""
 
     def __init__(self, func: Callable[['Strategy'], Any] = None) -> None:
@@ -10,7 +10,7 @@ class Strategy(object):
 
         # If a reference to a function is provided, replace the execute() method with the given function
         if func:
-            self.execute = types.MethodType(func, self)  # dynamically add a new method to a class
+            self._execute: Callable = types.MethodType(func, self)  # dynamically add a new method to a class
 
     @property
     def name(self) -> str:
@@ -27,6 +27,7 @@ class Strategy(object):
 # Replacement method 1
 def strategy_one(strategy: Strategy) -> None:
     print("{} is used to execute method 1".format(strategy.name))
+
 
 # Replacement method 2
 def strategy_two(strategy: Strategy) -> None:

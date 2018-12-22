@@ -1,7 +1,7 @@
 from typing import Iterator
 
 
-class IteratorSequence(object):
+class IteratorSequence:
     """Represent iterator sequence object."""
 
     def __init__(self, capacity: int) -> None:

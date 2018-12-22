@@ -70,7 +70,7 @@ class TestCase3(TestCase):
 
 
 # Facade
-class TestRunner(object):
+class TestRunner:
     """Represent simpler unified interface to run all test cases."""
 
     def __init__(self) -> None:
@@ -90,7 +90,7 @@ class TestRunner(object):
 
 
 # Client
-class Client(object):
+class Client:
     """Client runner."""
 
     def __init__(self) -> None:
@@ -100,6 +100,6 @@ class Client(object):
         self._runner.run()
 
 
-if __name__ ==  '__main__':
+if __name__ == '__main__':
     client: Client = Client()
     client.run()

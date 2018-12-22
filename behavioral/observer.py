@@ -29,8 +29,10 @@ class Core(Subject):
     """Represent what is being observed. Need to be monitored."""
 
     def __init__(self, name: str = '') -> None:
-        self._observers = []  # Reference to all the observers are being kept.
-                              # This is one to many relationship: there will be one subject to be observed by multiple _observers
+        self._observers = []
+        # Reference to all the observers are being kept.
+        # This is one to many relationship:
+        # there will be one subject to be observed by multiple _observers
         self._name: str = name  # Set name of the core
         self._temp: int = 0  # Initialize the temperature of the core
 
@@ -58,16 +60,17 @@ class Core(Subject):
     def temp(self) -> int:
         return self._temp
 
-    @temp.setter # Setter that sets the core temperature
+    @temp.setter  # Setter that sets the core temperature
     def temp(self, temp: int) -> None:
         self._temp = temp
         # Notify the observers whenever somebody changes the core temperature
 
 
-class TempObserver(object):
+class TempObserver:
     """Observer class. Need to be notified."""
 
-    def update(self, subject: Subject):  # Alert method is invoked when the notify() method in a concrete subject is invoked
+    @staticmethod
+    def update(subject: Subject):  # Alert method is invoked when the notify() method is invoked
         print("Temperature Viewer: {} has Temperature {}".format(subject.name, subject.temp))
 
 

@@ -2,7 +2,7 @@ import copy
 from typing import Any, Dict
 
 
-class Car(object):
+class Car:
     """A car object."""
 
     def __init__(self) -> None:
@@ -14,7 +14,7 @@ class Car(object):
         return '{} | {} | {}'.format(self._name, self._color, self._options)
 
 
-class Prototype(object):
+class Prototype:
     """A prototype object."""
 
     def __init__(self) -> None:

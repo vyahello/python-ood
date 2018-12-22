@@ -31,11 +31,11 @@ class DrawAPIOne(DrawAPI):
 class DrawAPITwo(DrawAPI):
     """Implementation-specific abstraction: concrete class two."""
 
-    def draw_circle(self,  x: int, y: int, radius: int) -> None:
+    def draw_circle(self, x: int, y: int, radius: int) -> None:
         print("API 2 drawing a circle at ({}, {} with radius {}!)".format(x, y, radius))
 
 
-class DrawCircle(object):
+class DrawCircle:
     """Implementation-independent abstraction: e.g there could be a rectangle class!."""
 
     def __init__(self, x: int, y: int, radius: int, draw_api: DrawAPI) -> None:
@@ -44,7 +44,6 @@ class DrawCircle(object):
         self._y: int = y
         self._radius: int = radius
         self._draw_api: DrawAPI = draw_api
-
 
     def draw(self) -> None:
         """Implementation-specific abstraction taken care of another class: DrawAPI."""

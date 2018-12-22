@@ -16,14 +16,14 @@ class ShapeError(Exception):
 
 class Circle(Shape):
     """Concrete shape subclass."""
-    
+
     def draw(self) -> str:
         return 'Circle.draw'
 
 
 class Square(Shape):
     """Concrete shape subclass."""
-    
+
     def draw(self) -> str:
         return 'Square.draw'
 

@@ -1,4 +1,4 @@
-class Korean(object):
+class Korean:
     """Korean speaker."""
 
     def __init__(self) -> None:
@@ -8,10 +8,10 @@ class Korean(object):
         return self._name
 
     def speak_korean(self) -> str:
-        return 'An-neyong?'
+        return f'An-neyong? {self.__class__.__name__}'
 
 
-class British(object):
+class British:
     """English speaker"""
 
     def __init__(self):
@@ -22,17 +22,18 @@ class British(object):
 
     # Note the difference method name here!
     def speak_english(self) -> str:
-        return 'Hello'
+        return f'Hello: {self.__class__.__name__}'
 
 
-class Adapter(object):
+class Adapter:
     """Change the generic method name to individualized method names."""
 
     def __init__(self, obj, **adapted_method) -> None:
         """Change the name of method."""
         self._object = obj
 
-        # Add a new dictionary item that establishes the mapping between the generic method name: speak() and the concrete method
+        # Add a new dictionary item that establishes the mapping between the generic method name:
+        #  speak() and the concrete method
         # For example, speak() will be translated to speak_korean() is the mapping says so
 
         self.__dict__.update(adapted_method)

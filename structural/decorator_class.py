@@ -9,7 +9,7 @@ class Int(ABC):
         pass
 
 
-class ToFloat(object):
+class ToFloat:
     """Decorator object converts `int` datatype into `float` datatype."""
 
     def __init__(self, int_obj: Int) -> None:
@@ -22,8 +22,8 @@ class ToFloat(object):
 class IntA(Int):
     """Int object A."""
 
-    def __init__(self, int_a: int) -> None:
-        self._int_a: int = int_a
+    def __init__(self, a_obj: int) -> None:
+        self._int_a: int = a_obj
 
     def value(self) -> int:
         return self._int_a
@@ -32,8 +32,8 @@ class IntA(Int):
 class IntB(Int):
     """Int object B."""
 
-    def __init__(self, int_b: int) -> None:
-        self._int_b: int = int_b
+    def __init__(self, b_obj: int) -> None:
+        self._int_b: int = b_obj
 
     def value(self) -> int:
         return self._int_b
@@ -42,9 +42,9 @@ class IntB(Int):
 class SumFloat:
     """Sum `float` numbers."""
 
-    def __init__(self, int_a: Int, int_b: Int) -> None:
-        self._int_a: ToFloat = ToFloat(int_a)
-        self._int_b: ToFloat = ToFloat(int_b)
+    def __init__(self, a_obj: Int, b_obj: Int) -> None:
+        self._int_a: ToFloat = ToFloat(a_obj)
+        self._int_b: ToFloat = ToFloat(b_obj)
 
     def value(self) -> float:
         return self._int_a.value() + self._int_b.value()

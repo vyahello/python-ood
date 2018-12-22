@@ -92,11 +92,11 @@ class SkyLarkBuilder(Builder):
         return self._car
 
 
-class Director(object):
+class Director:
     """Director. Responsible for `Car` assembling."""
 
-    def __init__(self, builder: Builder):
-        self._builder = builder
+    def __init__(self, build: Builder):
+        self._builder = build
 
     def construct_machine(self) -> None:
         self._builder.add_model()

@@ -6,6 +6,7 @@ class Pet(ABC):
 
     @abstractmethod
     def speak(self) -> str:
+        """Interface for a pet to speak."""
         pass
 
 
@@ -13,20 +14,20 @@ class Dog(Pet):
     """A simple dog class."""
 
     def __init__(self, name: str) -> None:
-        self._name: str = name
+        self._dog_name: str = name
 
     def speak(self) -> str:
-        return f'{self._name} says Woof!'
+        return f'{self._dog_name} says Woof!'
 
 
 class Cat(Pet):
     """A simple cat class."""
 
     def __init__(self, name: str) -> None:
-        self._name: str = name
+        self._cat_name: str = name
 
     def speak(self) -> str:
-        return f'{self._name} says Meow!'
+        return f'{self._cat_name} says Meow!'
 
 
 def get_pet(pet: str) -> Pet:

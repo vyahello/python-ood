@@ -1,7 +1,7 @@
 from typing import Any
 
 
-class Borg(object):
+class Borg:
     """Borg class making class attributes global.
     Safe the same state of all instances but instances are all different."""
 

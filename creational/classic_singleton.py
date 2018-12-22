@@ -1,4 +1,4 @@
-class Singleton(object):
+class Singleton:
     """Make all instances the same object."""
 
     def __new__(cls) -> 'Singleton':
@@ -7,8 +7,9 @@ class Singleton(object):
         return cls._instance
 
 
-class Singleton1(object):
+class Singleton1:
     __instance = None
+
     def __new__(cls, val=None):
         if not Singleton1.__instance:
             Singleton1.__instance = object.__new__(cls)
@@ -16,12 +17,12 @@ class Singleton1(object):
         return Singleton1.__instance
 
 
-class Foo(object):
+class Foo:
     """Fancy object."""
     pass
 
 
-def foo_singleton_factory(_singleton = Foo()) -> Foo:
+def foo_singleton_factory(_singleton=Foo()) -> Foo:
     """A singleton factory."""
     return _singleton
 
@@ -30,15 +31,16 @@ def singleton(cls):
     """Singleton decorator."""
 
     instances = {}
-    def getinstance():
+
+    def get_instance():
         if cls not in instances:
             instances[cls] = cls()
         return instances[cls]
-    return getinstance
+    return get_instance
 
 
 @singleton
-class Bar(object):
+class Bar:
     """Fancy object."""
     pass
 

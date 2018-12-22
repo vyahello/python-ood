@@ -4,10 +4,12 @@ import time
 class Producer:
     """Define the resource-intensive object to instantiate."""
 
-    def produce(self):
+    @staticmethod
+    def produce():
         print('producer is working hard')
 
-    def meet(self):
+    @staticmethod
+    def meet():
         print('Producer has time to meet you now')
 
 
