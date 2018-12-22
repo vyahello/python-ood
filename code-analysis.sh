@@ -7,8 +7,8 @@ function run_lint_checker {
 
 function run_report {
     local exit_code="$?"
-    [[ ${exit_code} == 0 ]] && echo "Congratulation, your code is fully clear!" && exit 0
-    [[ ${exit_code} == 0 ]] || echo "Some errors are occurred during coe assessment!" && exit 1
+    [[ ${exit_code} == 0 ]] && echo "Congratulation, your code is fully clean!" && exit 0
+    [[ ${exit_code} == 0 ]] || echo "Some errors are occurred during code assessment!" && exit 1
 }
 
 

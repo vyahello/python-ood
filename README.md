@@ -1,6 +1,8 @@
 # Python OOD
 Describes most useful python design patterns.
 
+[![Build Status](https://api.travis-ci.org/vyahello/python-ood.svg?branch=master)](https://travis-ci.org/vyahello/python-ood)
+
 ## Table of contents
 - [Creational](#creational)
   - [Factory](#factory)
