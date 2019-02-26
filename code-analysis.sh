@@ -1,5 +1,11 @@
 #!/bin/bash
 
+
+function install_dependencies {
+    pip install --no-cache-dir --upgrade pip
+}
+
+
 function run_lint_checker {
     pylint $(find . -iname "*.py")
 }
@@ -13,6 +19,7 @@ function run_report {
 
 
 function run_code_assessment {
+    install_dependencies
     run_lint_checker
     run_report
 }
