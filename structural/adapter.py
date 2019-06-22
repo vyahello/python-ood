@@ -1,61 +1,56 @@
-class Korean:
+from abc import ABC, abstractmethod
+
+
+class Speaker(ABC):
+    """Abstract interface for some speaker."""
+
+    @abstractmethod
+    def type(self) -> str:
+        pass
+
+
+class Korean(Speaker):
     """Korean speaker."""
 
     def __init__(self) -> None:
-        self._name: str = 'Korean'
+        self._type: str = "Korean"
 
-    def name(self) -> str:
-        return self._name
+    def type(self) -> str:
+        return self._type
 
     def speak_korean(self) -> str:
-        return f'An-neyong? {self.__class__.__name__}'
+        return "An-neyong?"
 
 
-class British:
-    """English speaker"""
+class British(Speaker):
+    """English speaker."""
 
     def __init__(self):
-        self._name: str = 'British'
+        self._type: str = "British"
 
-    def name(self) -> str:
-        return self._name
+    def type(self) -> str:
+        return self._type
 
-    # Note the difference method name here!
     def speak_english(self) -> str:
-        return f'Hello: {self.__class__.__name__}'
+        return "Hello"
 
 
 class Adapter:
-    """Change the generic method name to individualized method names."""
+    """Changes the generic method name to individualized method names."""
 
     def __init__(self, obj, **adapted_method) -> None:
-        """Change the name of method."""
         self._object = obj
-
-        # Add a new dictionary item that establishes the mapping between the generic method name:
-        #  speak() and the concrete method
-        # For example, speak() will be translated to speak_korean() is the mapping says so
-
         self.__dict__.update(adapted_method)
 
     def __getattr__(self, item):
-        """Return the rest of attributes!"""
-
         return getattr(self._object, item)
 
 
-# List to store speaker objects
-objects: list = []
-
-# Create a Korean object
+speakers: list = []
 korean = Korean()
-
-# Create a British object
 british = British()
+speakers.append(Adapter(korean, speak=korean.speak_korean))
+speakers.append(Adapter(british, speak=british.speak_english))
 
-# Append the object to the objects list, dynamically
-objects.append(Adapter(korean, speak=korean.speak_korean))
-objects.append(Adapter(british, speak=british.speak_english))
-
-for o in objects:
-    print(f"{o.name()} says '{o.speak()}'\n")
+for speaker in speakers:
+    print(f"{speaker.type()} says '{speaker.speak()}'")

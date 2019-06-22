@@ -2,19 +2,17 @@ import time
 
 
 class Producer:
-    """Define the resource-intensive object to instantiate."""
+    """Defines the resource-intensive object to instantiate."""
 
-    @staticmethod
-    def produce():
-        print('producer is working hard')
+    def produce(self):
+        print("Producer is working hard!")
 
-    @staticmethod
-    def meet():
-        print('Producer has time to meet you now')
+    def meet(self):
+        print("Producer has time to meet you now")
 
 
 class Proxy:
-    """Define the less resource-intensive object to instantiate as a middleman."""
+    """Defines the less resource-intensive object to instantiate as a middleman."""
 
     def __init__(self):
         self._occupied: bool = False
@@ -25,34 +23,22 @@ class Proxy:
 
     @occupied.setter
     def occupied(self, state: bool) -> None:
+        if not isinstance(state, bool):
+            raise ValueError(f'"{state}" value should be a boolean data type!')
         self._occupied = state
 
     def produce(self) -> None:
-        """Check if producer is available."""
-
-        print('Artist checking if producer is available...')
-
+        print("Artist checking if producer is available ...")
         if not self.occupied:
-            # If producer is available, create a producer object!
             producer = Producer()
             time.sleep(2)
-
-            # Make the producer meet the guest!
             producer.meet()
         else:
-            # Otherwise don't instantiate a producer
             time.sleep(2)
-            print('Producer is busy!')
+            print("Producer is busy!")
 
 
-# Instantiate a Proxy
 proxy = Proxy()
-
-# Make the proxy: Artist produce until Producer is available
 proxy.produce()
-
-# Change the state to 'occupied'
 proxy.occupied = True
-
-# Make the Producer produce
 proxy.produce()

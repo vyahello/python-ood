@@ -2,23 +2,15 @@ from abc import ABC, abstractmethod
 
 
 class Machine(ABC):
-    """Abstract machine product."""
+    """Abstract machine interface."""
 
     @abstractmethod
-    def model(self) -> str:
-        pass
-
-    @abstractmethod
-    def tires(self) -> str:
-        pass
-
-    @abstractmethod
-    def engine(self) -> str:
+    def summary(self) -> str:
         pass
 
 
 class Builder(ABC):
-    """Abstract builder."""
+    """Abstract builder interface."""
 
     @abstractmethod
     def add_model(self) -> None:
@@ -41,74 +33,50 @@ class Car(Machine):
     """A car product."""
 
     def __init__(self) -> None:
-        self._model = None
-        self._tires = None
-        self._engine = None
+        self.model = None
+        self.tires = None
+        self.engine = None
 
-    @property
-    def model(self) -> str:
-        return self._model
-
-    @model.setter
-    def model(self, model: str) -> None:
-        self._model = model
-
-    @property
-    def tires(self) -> str:
-        return self._tires
-
-    @tires.setter
-    def tires(self, tires: str) -> None:
-        self._tires = tires
-
-    @property
-    def engine(self) -> str:
-        return self._engine
-
-    @engine.setter
-    def engine(self, engine: str) -> None:
-        self._engine = engine
-
-    def __str__(self):
-        return '{} | {} | {}'.format(self.model, self.tires, self.engine)
+    def summary(self) -> str:
+        return "Car details: {} | {} | {}".format(self.model, self.tires, self.engine)
 
 
 class SkyLarkBuilder(Builder):
-    """Concrete Builder --> provides parts and tools to work on the parts."""
+    """Provides parts and tools to work on the car parts."""
 
     def __init__(self) -> None:
         self._car: Machine = Car()
 
     def add_model(self) -> None:
-        self._car.model = 'SkyBuilder model'
+        self._car.model = "SkyBuilder model"
 
     def add_tires(self) -> None:
-        self._car.tires = 'Motosport tires'
+        self._car.tires = "Motosport tires"
 
     def add_engine(self) -> None:
-        self._car.engine = 'GM Motors engine'
+        self._car.engine = "GM Motors engine"
 
     def machine(self) -> Machine:
         return self._car
 
 
 class Director:
-    """Director. Responsible for `Car` assembling."""
+    """A director. Responsible for `Car` assembling."""
 
-    def __init__(self, build: Builder):
-        self._builder = build
+    def __init__(self, builder_: Builder) -> None:
+        self._builder = builder_
 
     def construct_machine(self) -> None:
         self._builder.add_model()
         self._builder.add_tires()
         self._builder.add_engine()
 
-    def get_machine(self) -> Machine:
+    def release_machine(self) -> Machine:
         return self._builder.machine()
 
 
 builder: Builder = SkyLarkBuilder()
 director: Director = Director(builder)
 director.construct_machine()
-car: Machine = director.get_machine()
-print(car)
+car: Machine = director.release_machine()
+print(car.summary())

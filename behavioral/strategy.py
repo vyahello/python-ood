@@ -3,14 +3,12 @@ from typing import Callable, Any
 
 
 class Strategy:
-    """The strategy pattern class."""
+    """A strategy pattern class."""
 
-    def __init__(self, func: Callable[['Strategy'], Any] = None) -> None:
-        self._name = "Default strategy"
-
-        # If a reference to a function is provided, replace the execute() method with the given function
+    def __init__(self, func: Callable[["Strategy"], Any] = None) -> None:
+        self._name: str = "Default strategy"
         if func:
-            self._execute: Callable = types.MethodType(func, self)  # dynamically add a new method to a class
+            self.execute = types.MethodType(func, self)
 
     @property
     def name(self) -> str:
@@ -18,37 +16,29 @@ class Strategy:
 
     @name.setter
     def name(self, name: str) -> None:
+        if not isinstance(name, str):
+            raise ValueError(f'"{name}" value should be a string data type!')
         self._name = name
 
-    def execute(self):  # gets replace by another version if another strategy is provided.
-        print("{} is used".format(self._name))
+    def execute(self):
+        print(f"{self._name} is used")
 
 
-# Replacement method 1
-def strategy_one(strategy: Strategy) -> None:
-    print("{} is used to execute method 1".format(strategy.name))
+def strategy_function_one(strategy: Strategy) -> None:
+    print(f"{strategy.name} is used to execute method one")
 
 
-# Replacement method 2
-def strategy_two(strategy: Strategy) -> None:
-    print("{} is used to execute method 2".format(strategy.name))
+def strategy_function_two(strategy: Strategy) -> None:
+    print(f"{strategy.name} is used to execute method two")
 
 
-# Default strategy
-s0 = Strategy()
+default_strategy = Strategy()
+default_strategy.execute()
 
-# Execute our default strategy
-s0.execute()
+first_strategy = Strategy(func=strategy_function_one)
+first_strategy.name = "Strategy one"
+first_strategy.execute()
 
-# Let'screate the first variation of our default strategy by providing a new behavior
-s1 = Strategy(func=strategy_one)
-
-# Set it's name
-s1.name = 'Strategy one'
-
-# Execute the strategy
-s1.execute()
-
-s2 = Strategy(func=strategy_two)
-s2.name = 'Strategy two'
-s2.execute()
+second_strategy = Strategy(func=strategy_function_two)
+second_strategy.name = "Strategy two"
+second_strategy.execute()

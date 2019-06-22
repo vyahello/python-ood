@@ -2,39 +2,39 @@ from abc import ABC, abstractmethod
 
 
 class Pet(ABC):
-    """Abstraction of a pet."""
+    """Abstract interface of a pet."""
 
     @abstractmethod
     def speak(self) -> str:
         pass
 
     @abstractmethod
-    def __str__(self) -> str:
+    def type(self) -> str:
         pass
 
 
-class PetFood(ABC):
-    """Abstraction of a pet food."""
+class Food(ABC):
+    """Abstract interface of a food."""
 
     @abstractmethod
-    def get(self) -> str:
+    def show(self) -> str:
         pass
 
 
 class PetFactory(ABC):
-    """Abstraction of a pet factory."""
+    """Abstract interface of a pet factory."""
 
     @abstractmethod
     def pet(self) -> Pet:
         pass
 
     @abstractmethod
-    def food(self) -> PetFood:
+    def food(self) -> Food:
         pass
 
 
 class PetStore(ABC):
-    """Abstraction of a pet."""
+    """Abstract interface of a pet store."""
 
     @abstractmethod
     def show_pet(self) -> str:
@@ -42,105 +42,93 @@ class PetStore(ABC):
 
 
 class Dog(Pet):
-    """A simple dog class."""
+    """A dog pet."""
 
     def __init__(self, name: str) -> None:
-        self._name: str = name
+        self._name = name
 
     def speak(self) -> str:
-        return f'{self._name} says Woof!'
+        return f'"{self._name}" says Woof!'
 
-    def __str__(self) -> str:
-        return 'Dog'
+    def type(self) -> str:
+        return "Dog"
 
 
-class DogFood(PetFood):
-    """Dog food object."""
+class DogFood(Food):
+    """A dog food."""
 
-    def get(self) -> str:
-        return 'Dog food'
+    def show(self) -> str:
+        return "Pedigree"
 
 
 class DogFactory(PetFactory):
-    """Dog factory."""
+    """A dog factory."""
 
     def __init__(self) -> None:
-        self._dog: Pet = Dog('Spike')
-        self._food: PetFood = DogFood()
+        self._dog: Pet = Dog(name="Spike")
+        self._food: Food = DogFood()
 
     def pet(self) -> Pet:
-        """Return dog object."""
-
         return self._dog
 
-    def food(self) -> PetFood:
-        """Return dog food object."""
-
+    def food(self) -> Food:
         return self._food
 
 
 class Cat(Pet):
-    """A simple cat class."""
+    """A cat pet."""
 
     def __init__(self, name: str) -> None:
-        self._name: str = name
+        self._name = name
 
     def speak(self) -> str:
-        return f'{self._name} says Moew!'
+        return f'"{self._name}" says Moew!'
 
-    def __str__(self) -> str:
-        return 'Cat'
+    def type(self) -> str:
+        return "Cat"
 
 
-class CatFood(PetFood):
-    """Cat food object."""
+class CatFood(Food):
+    """A cat food."""
 
-    def get(self) -> str:
-        return 'Cat food'
+    def show(self) -> str:
+        return "Whiskas"
 
 
 class CatFactory(PetFactory):
-    """Dog factory."""
+    """A dog factory."""
 
     def __init__(self) -> None:
-        self._cat: Pet = Cat('Hope')
-        self._food: PetFood = CatFood()
+        self._cat: Pet = Cat(name="Hope")
+        self._food: Food = CatFood()
 
     def pet(self) -> Pet:
-        """Return cat object."""
-
         return self._cat
 
-    def food(self) -> PetFood:
-        """Return cat food object."""
-
+    def food(self) -> Food:
         return self._food
 
 
 class FluffyStore(PetStore):
-    """Houses our Abstract Factory."""
+    """Houses our abstract pet factory."""
 
     def __init__(self, pet_factory: PetFactory) -> None:
-        """pet_factory is our Abstract factory."""
-
-        self._pet_factory = pet_factory
+        self._pet_factory: PetFactory = pet_factory
 
     def show_pet(self):
-        """Utility method to display the details of the objects returned by the DogFactory."""
-
         pet: Pet = self._pet_factory.pet()
-        pet_food: PetFood = self._pet_factory.food()
+        pet_food: Food = self._pet_factory.food()
+        print(f"Our pet is {pet.type()}")
+        print(f"{pet.type()} {pet.speak()}")
+        print(f"It eats {pet_food.show()} food")
 
-        print(f"Our pet is {pet}")
-        print(f"Our pet says hello by {pet.speak()}")
-        print(f"Its food is {pet_food.get()}")
 
+# cat factory
+cat_factory: PetFactory = CatFactory()
+store: PetStore = FluffyStore(cat_factory)
+store.show_pet()
 
-# Create a Concrete Factory
-factory = CatFactory()
-
-# Create a pet store housing our Abstract Factory
-shop = FluffyStore(factory)
-
-# Invoke the utility method to show the details of our oet
-shop.show_pet()
+# dog factory
+dog_factory: PetFactory = DogFactory()
+store: PetStore = FluffyStore(dog_factory)
+store.show_pet()
