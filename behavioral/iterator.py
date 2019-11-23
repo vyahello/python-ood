@@ -3,7 +3,7 @@ from typing import Iterator, Tuple
 
 def count_to(count: int) -> Iterator[Tuple[int, str]]:
     """Our iterator implementation."""
-    numbers_in_german = ['einn', 'zwei', 'drei', 'veir', 'funf']
+    numbers_in_german = ["einn", "zwei", "drei", "veir", "funf"]
     iterator = zip(range(1, count + 1), numbers_in_german)
     for position, number in iterator:
         yield position, number

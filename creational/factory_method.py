@@ -11,6 +11,7 @@ class Shape(ABC):
 
 class ShapeError(Exception):
     """Represent shape error message."""
+
     pass
 
 
@@ -18,14 +19,14 @@ class Circle(Shape):
     """Concrete shape subclass."""
 
     def draw(self) -> str:
-        return 'Circle.draw'
+        return "Circle.draw"
 
 
 class Square(Shape):
     """Concrete shape subclass."""
 
     def draw(self) -> str:
-        return 'Square.draw'
+        return "Square.draw"
 
 
 class ShapeFactory:
@@ -35,14 +36,14 @@ class ShapeFactory:
         self._shape: str = shape
 
     def get_shape(self) -> Shape:
-        if self._shape == 'circle':
+        if self._shape == "circle":
             return Circle()
-        if self._shape == 'square':
+        if self._shape == "square":
             return Square()
         raise ShapeError(f'Could not find shape "{self._shape}"')
 
 
-factory = ShapeFactory(shape='circle')
+factory = ShapeFactory(shape="circle")
 circle: Shape = factory.get_shape()  # returns our shape
 circle.draw()  # draw a circle
 
@@ -63,7 +64,7 @@ class Dog(Pet):
         self._dog_name: str = name
 
     def speak(self) -> str:
-        return f'{self._dog_name} says Woof!'
+        return f"{self._dog_name} says Woof!"
 
 
 class Cat(Pet):
@@ -73,16 +74,13 @@ class Cat(Pet):
         self._cat_name: str = name
 
     def speak(self) -> str:
-        return f'{self._cat_name} says Meow!'
+        return f"{self._cat_name} says Meow!"
 
 
 def get_pet(pet: str) -> Pet:
     """The factory method."""
-    return {
-        'dog': Dog("Hope"),
-        'cat': Cat("Faith")
-    }[pet]
+    return {"dog": Dog("Hope"), "cat": Cat("Faith")}[pet]
 
 
 # return Cat class object
-get_pet('cat')
+get_pet("cat")

@@ -5,7 +5,7 @@ from typing import List
 class Handler:
     """Abstract handler."""
 
-    def __init__(self, successor: 'Handler') -> None:
+    def __init__(self, successor: "Handler") -> None:
         self._successor: Handler = successor
 
     def handler(self, req: int) -> None:

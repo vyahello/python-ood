@@ -15,6 +15,7 @@ class Model(ABC):
         that iterates over key,value pairs of its information."""
         pass
 
+    @property
     @abstractmethod
     def item_type(self) -> str:
         pass
@@ -62,9 +63,7 @@ class ProductModel(Model):
                 dot_location: int = first_digits_str.index(".")
             except ValueError:
                 return "{}.00".format(first_digits_str)
-            return "{}{}".format(
-                first_digits_str, "0" * (3 + dot_location - len(first_digits_str))
-            )
+            return "{}{}".format(first_digits_str, "0" * (3 + dot_location - len(first_digits_str)))
 
     products = {
         "milk": {"price": Price(1.50), "quantity": 10},

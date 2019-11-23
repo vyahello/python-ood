@@ -65,9 +65,9 @@ class BorgSingleton(Borg):
 
 
 # Create a singleton object and add out first acronym
-x = BorgSingleton(HTTP='Hyper Text Transfer Protocol')
+x = BorgSingleton(HTTP="Hyper Text Transfer Protocol")
 print(x)
 
 # Create another singleton which will add to the existent dict attribute
-y = BorgSingleton(SNMP='Simple Network Management Protocol')
+y = BorgSingleton(SNMP="Simple Network Management Protocol")
 print(y)

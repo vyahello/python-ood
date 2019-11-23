@@ -98,21 +98,21 @@ class A(Interface):
     """Implement interface."""
 
     def run(self) -> str:
-        return 'A.run()'
+        return "A.run()"
 
 
 class B(Interface):
     """Implement interface."""
 
     def run(self) -> str:
-        return 'B.run()'
+        return "B.run()"
 
 
 class C(Interface):
     """Implement interface."""
 
     def run(self) -> str:
-        return 'C.run()'
+        return "C.run()"
 
 
 class Facade(Interface):
@@ -126,6 +126,6 @@ class Facade(Interface):
             yield obj
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     lst = [cls().run() for cls in Facade().run()]
     print(*lst)
