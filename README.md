@@ -1,9 +1,17 @@
 # Python OOD
-Describes most useful python design patterns.
+> Describes most useful python design patterns.
 
 [![Build Status](https://api.travis-ci.org/vyahello/python-ood.svg?branch=master)](https://travis-ci.org/vyahello/python-ood)
 
+**Tools**
+> - `python 3+` basis
+> - `pylint` code analyser
+> - `black` code formatter
+> - `travis CI`
+>
+> All code is fully type annotated ⭐
 
+## Table of contents
 - [Creational](#creational)
   - [Factory method](#factory-method)
   - [Abstract factory](#abstract-factory)
@@ -25,11 +33,17 @@ Describes most useful python design patterns.
   - [Strategy](#strategy)
   - [Chain of responsibility](#chain-of-responsibility)
 - [Other qualities](#other-qualities)
+- [Development notes](#development-notes)
+  - [Release notes](#release-notes)
+  - [Meta](#meta)
+  - [Contributing](#contributing)
 
 ## Creational
-Used to create objects in a systematic way. Supports flexibility and different subtypes of objects from the same class at runtime. Here polymorphism is often used.
+Creational types of patterns used to create objects in a systematic way. Supports flexibility and different subtypes of objects from the same class at runtime. 
+Here **_polymorphism_** is often used.
+
 ### Factory method
-Define an interface for creating an object but defer object instantiation to run time.
+Factory method defines an interface for creating an object but defers object instantiation to run time.
 ```python
 from abc import ABC, abstractmethod
 
@@ -139,14 +153,14 @@ get_pet('cat')
 
 ```
 ### Abstract factory
-Client expects to receive family related objects. But dont have to know which family it is until run time. Abstract factory is related to factory method and concrete product are singletons.
-- Participants:
-  - Abstract factory: pet factory.
-  - Concrete factory: dog factory and cat factory.
-  - Abstract product.
-  - Concrete product: dog and dog food, cat and cat food.
+In abstract factory a client expects to receive family related objects. But don't have to know which family it is until run time. Abstract factory is related to factory method and concrete product are singletons.
+- Implementation idea:
+  - Abstract factory: pet factory
+  - Concrete factory: dog factory and cat factory
+  - Abstract product
+  - Concrete product: dog and dog food, cat and cat food
 - Exercise:
-We have a Pet factory (which includes Dog and Cat factory and both factories produced related products such as Dog and Cat food and we have a PetFactory which gets Cat or Dog factory).
+  - We have a Pet factory (which includes Dog and Cat factory and both factories produced related products such as Dog and Cat food and we have a PetFactory which gets Cat or Dog factory).
 
 ```python
 from abc import ABC, abstractmethod
@@ -286,10 +300,10 @@ store.show_pet()
 
 ```
 ### Singleton
-Global variable, modules - singleton. Allows only one object to be instantiated from a class template.
-If you want to share cached information to multiple objects.
+Python has global variables and modules which are **_singletons_**. Singleton allows only one object to be instantiated from a class template.
+Useful if you want to share cached information to multiple objects.
 
-Classic singleton
+**Classic singleton**
 ```python
 class Singleton:
     """Makes all instances as the same object."""
@@ -333,7 +347,7 @@ print(id(bar_two))
 print(bar_one is bar_two)
 ```
 
-Borg singleton
+**Borg singleton**
 ```python
 from typing import Any
 
@@ -369,13 +383,14 @@ print(y)
 ```
 
 ### Builder
-Reduces complexity of building objects.
+Builder reduces complexity of building objects.
 - Participants:
-  - Director.
-  - Abstract Builder: interfaces.
-  - Concrete Builder: implements the interfaces.
-  - Product: object being built.
-- Exercise to to build a car object.
+  - Director
+  - Abstract Builder: interfaces
+  - Concrete Builder: implements the interfaces
+  - Product: object being built
+- Exercise:
+  - Build a car object
 
 ```python
 from abc import ABC, abstractmethod
@@ -463,12 +478,12 @@ print(car.summary())
 
 ```
 ### Prototype
-Prototype patterns is related to abstract factory pattern.
+Prototype patterns are related to abstract factory pattern.
 - Ideas:
-  - Clone objects according to prototypical instance. 
-  - Creating many identical objects individually. 
-  - Clone individual objects. 
-  - Create a prototypical instance first.
+  - Clone objects according to prototypical instance.
+  - Creating many identical objects individually.
+  - Clone individual objects
+  - Create a prototypical instance first
 - Exercise:
   - Use the same car if car has same color or options, you can clone objects instead of creating individual objects
 
@@ -527,13 +542,14 @@ print(cloned_car.summary())
 ```
 
 ## Structural
-Establish useful relationships between software components. Here inheritance is often used.
-- Route maps the user request to a `Controller` which...
-- Uses the `Model` to retrieve all of the necessary data, organizes it and send it off to the...
-- View, which then uses that data to render the web page.
+Structural type of patterns establish useful relationships between software components. Here **_inheritance_** is often used.
+- Ideas:
+  - Route maps the user request to a `Controller` which...
+  - Uses the `Model` to retrieve all of the necessary data, organizes it and send it off to the...
+  - View, which then uses that data to render the web page
 
 ### MVC
-UI pattern intended to separate internal representation of data from ways it is presented to/accepted from the user
+MVC (Model-View-Controller) is a UI pattern intended to separate internal representation of data from ways it is presented to/from the user.
 
 ```python
 from abc import ABC, abstractmethod
@@ -703,11 +719,11 @@ if __name__ == "__main__":
 ```
 
 ### Decorator
-Add new feature to an existing object. Supports dynamic changes.
+Decorator type of patterns add new feature to an existing object. Supports dynamic changes.
 - Exercise:
   - Add additional message to an existing function
 
-Decorator function
+**Decorator function**
 ```python
 from functools import wraps
 from typing import Callable
@@ -735,7 +751,7 @@ print(hello_world.__name__)
 print(hello_world.__doc__)
 ```
 
-Decorator class
+**Decorator class**
 ```python
 from abc import ABC, abstractmethod
 
@@ -786,7 +802,7 @@ print(sum_float.value())
 ```
 
 ### Proxy
-Postpone object creation unless it is necessary. Object is too expensive (resource intensive) to create that's why we have to create it if it is needed.
+Proxy patterns postpones object creation unless it is necessary. Object is too expensive (resource intensive) to create that's why we have to create it once it is needed.
 - Participants:
   - Producer
   - Artist
@@ -841,11 +857,11 @@ proxy.produce()
 ```
 
 ### Adapter
-Converts interface of a class into another one a client is expecting.
+Adapter patterns converts interface of a class into another one a client is expecting.
 - Exercise:
-  - Korean language: speak_korean()
-  - British language: speak_english()
-  - Client has to have uniform interface - speak method()
+  - Korean language: `speak_korean()`
+  - British language: `speak_english()`
+  - Client has to have uniform interface - `speak method`
 - Solution:
   - Use an adapter pattern that translates method name between client and the server code
 
@@ -914,7 +930,7 @@ for speaker in speakers:
 - Participants:
   - Component - abstract 'class'
   - Child - inherits from Component 'class'
-  - Composite - inherits from component 'class'. Maintain child objects by adding.removing them.
+  - Composite - inherits from component 'class'. Maintain child objects by adding.removing them
 
 ```python
 from abc import ABC, abstractmethod
@@ -978,7 +994,8 @@ top_menu.function()
 ```
 
 ### Bridge
-Separates the abstraction into different class hierarchies. Abstract factory and adapter patterns are related to this Bridge design pattern.
+Bridge pattern separates the abstraction into different class hierarchies. 
+Abstract factory and adapter patterns are related to Bridge design pattern.
 
 ```python
 from abc import ABC, abstractmethod
@@ -1043,7 +1060,8 @@ circle_two.draw()
 ```
 
 ### Facade
-The Facade pattern is a way to provide a simpler unified interface to a more complex system. It provides an easier way to access functions of the underlying system by providing a single entry point.
+The Facade pattern is a way to provide a simpler unified interface to a more complex system. 
+It provides an easier way to access functions of the underlying system by providing a single entry point.
 
 ```python
 from typing import Tuple, Iterator
@@ -1185,13 +1203,13 @@ test_suite.run()
 ```
 
 ## Behavioral
-Best practices of objects interaction. Methods and signatures are often used.
+Behavioral patterns provide best practices of objects interaction. Methods and signatures are often used.
 
 ### Observer
-Establishes one yo many relationship between subject and multiple observers. Singleton is related to observer design pattern.
+Observer pattern establishes one to many relationship between subject and multiple observers. Singleton is related to observer design pattern.
 - Exercise:
-  - Subjects need to be monitored.
-  - Observers need to be notified.
+  - Subjects need to be monitored
+  - Observers need to be notified
 - Participants:
   - Subject: abstract class
     - Attach
@@ -1262,7 +1280,7 @@ subject_one.notify()
 ```
 
 ### Visitor
-Add new features to existing hierarchy without changing it. Add new operations to existing classes dynamically.
+Visitor pattern adds new features to existing hierarchy without changing it. Add new operations to existing classes dynamically.
 Exercise:
   - House class:
     - HVAC specialist: Visitor type 1
@@ -1339,10 +1357,10 @@ home.accept(electrician)
 ### Iterator
 Composite pattern is related to iterator pattern.
 - Exercise:
-  - Our custom iterator based on a build-in python iterator: `zip()`.
-  - Will iterate over a certain point baed on client input.
+  - Our custom iterator based on a build-in python iterator: `zip()`
+  - Will iterate over a certain point based on client input
 
-Iterator function
+**Iterator function**
 ```python
 from typing import Iterator, Tuple
 
@@ -1359,7 +1377,7 @@ for number in count_to(3):
     print("{} in german is {}".format(*number))
 ```
 
-Iterator class
+**Iterator class**
 ```python
 from typing import Iterator
 
@@ -1383,7 +1401,7 @@ for _ in range(10):
 ```
 
 ### Strategy
-Dynamically changing the behavior of an object. Add dynamically objects with `types` module.
+Strategy patterns used to dynamically change the behavior of an object. Add dynamically objects with `types` module.
 - Participants:
   - Abstract strategy class with default set of behaviors
   - Concrete strategy class with new behaviors
@@ -1436,7 +1454,7 @@ second_strategy.execute()
 ```
 
 ### Chain of responsibility
-Decouple responsibility. Composite is related to this design pattern.
+Thiss type of pattern decouples responsibility. Composite is related to this design pattern.
 - Exercise:
   - Integer value
   - Handlers
@@ -1514,14 +1532,25 @@ c.delegate(requests)
 
 **Cohesion** refers to how independent the software component is. More cohesion is better.
 
+## Development notes
 
-## Contributing
+### Release notes
 
-### Setup
-- clone the repository
-- configure Git for the first time after cloning with your name and email
-  ```bash
-  git config --local user.name "Volodymyr Yahello"
-  git config --local user.email "vyahello@gmail.com"
-  ```
-- `python3.6` is required to run the code
+* 0.1.1
+    * Polish documentation
+* 0.1.0
+    * Distribute first version of a project
+
+### Meta
+Author – Volodymyr Yahello vyahello@gmail.com
+
+Distributed under the `MIT` license. See [LICENSE](LICENSE.md) for more information.
+
+You can reach out me at:
+* [https://github.com/vyahello](https://github.com/vyahello)
+* [https://www.linkedin.com/in/volodymyr-yahello-821746127](https://www.linkedin.com/in/volodymyr-yahello-821746127)
+
+### Contributing
+1. clone the repository
+2. configure Git for the first time after cloning with your `name` and `email`
+3. `pip install -r requirements.txt` to install all project dependencies
