@@ -33,9 +33,9 @@ class Car(Machine):
     """A car product."""
 
     def __init__(self) -> None:
-        self.model = None
-        self.tires = None
-        self.engine = None
+        self.model: str = None
+        self.tires: str = None
+        self.engine: str = None
 
     def summary(self) -> str:
         return "Car details: {} | {} | {}".format(self.model, self.tires, self.engine)
@@ -64,7 +64,7 @@ class Director:
     """A director. Responsible for `Car` assembling."""
 
     def __init__(self, builder_: Builder) -> None:
-        self._builder = builder_
+        self._builder: Builder = builder_
 
     def construct_machine(self) -> None:
         self._builder.add_model()

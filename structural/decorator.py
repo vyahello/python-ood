@@ -66,5 +66,5 @@ class SumOfFloat(Number):
 
 integer_one: Number = Integer(value=5)
 integer_two: Number = Integer(value=6)
-sum_float = SumOfFloat(integer_one, integer_two)
+sum_float: Number = SumOfFloat(integer_one, integer_two)
 print(sum_float.value())

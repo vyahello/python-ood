@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Dict
 
 
 class Singleton:
@@ -10,11 +10,11 @@ class Singleton:
         return cls._instance
 
 
-def singleton(cls):
+def singleton(cls: Any) -> Any:
     """A singleton decorator."""
-    instances = {}
+    instances: Dict[Any, Any] = {}
 
-    def get_instance():
+    def get_instance() -> Any:
         if cls not in instances:
             instances[cls] = cls()
         return instances[cls]
@@ -29,15 +29,15 @@ class Bar:
     pass
 
 
-singleton_one = Singleton()
-singleton_two = Singleton()
+singleton_one: Singleton = Singleton()
+singleton_two: Singleton = Singleton()
 
 print(id(singleton_one))
 print(id(singleton_two))
 print(singleton_one is singleton_two)
 
-bar_one = Bar()
-bar_two = Bar()
+bar_one: Bar = Bar()
+bar_two: Bar = Bar()
 print(id(bar_one))
 print(id(bar_two))
 print(bar_one is bar_two)
@@ -47,7 +47,7 @@ class Borg:
     """Borg class making class attributes global.
     Safe the same state of all instances but instances are all different."""
 
-    _shared_state: dict = {}
+    _shared_state: Dict[Any, Any] = {}
 
     def __init__(self) -> None:
         self.__dict__ = self._shared_state
@@ -65,9 +65,9 @@ class BorgSingleton(Borg):
 
 
 # Create a singleton object and add out first acronym
-x = BorgSingleton(HTTP="Hyper Text Transfer Protocol")
+x: Borg = BorgSingleton(HTTP="Hyper Text Transfer Protocol")
 print(x)
 
 # Create another singleton which will add to the existent dict attribute
-y = BorgSingleton(SNMP="Simple Network Management Protocol")
+y: Borg = BorgSingleton(SNMP="Simple Network Management Protocol")
 print(y)

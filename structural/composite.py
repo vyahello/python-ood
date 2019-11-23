@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Sequence, List
 
 
 class Component(ABC):
@@ -13,7 +14,7 @@ class Child(Component):
     """Concrete child component."""
 
     def __init__(self, *args: str) -> None:
-        self._args: str = args
+        self._args: Sequence[str] = args
 
     def name(self) -> str:
         return self._args[0]
@@ -25,9 +26,9 @@ class Child(Component):
 class Composite(Component):
     """Concrete class maintains the tree recursive structure."""
 
-    def __init__(self, *args: str):
-        self._args: str = args
-        self._children: list = []
+    def __init__(self, *args: str) -> None:
+        self._args: Sequence[str] = args
+        self._children: List[Component] = []
 
     def name(self) -> str:
         return self._args[0]
@@ -40,7 +41,7 @@ class Composite(Component):
 
     def function(self) -> None:
         print(f'"{self.name()}" component')
-        for child in self._children:
+        for child in self._children:  # type: Component
             child.function()
 
 

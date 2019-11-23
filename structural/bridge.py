@@ -35,7 +35,7 @@ class DrawApiTwo(DrawApi):
         print(f"API 2 drawing a circle at ({x}, {y} with radius {radius}!)")
 
 
-class DrawCircle(object):
+class DrawCircle(Circle):
     """Implementation-independent abstraction: e.g there could be a rectangle class!."""
 
     def __init__(self, x: int, y: int, radius: int, draw_api: DrawApi) -> None:

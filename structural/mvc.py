@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List, Dict, Iterator
+from typing import List, Dict, Iterator, Any
 
 
 class Model(ABC):
@@ -62,10 +62,10 @@ class ProductModel(Model):
             try:
                 dot_location: int = first_digits_str.index(".")
             except ValueError:
-                return "{}.00".format(first_digits_str)
-            return "{}{}".format(first_digits_str, "0" * (3 + dot_location - len(first_digits_str)))
+                return f"{first_digits_str}.00"
+            return f"{first_digits_str}{'0' * (3 + dot_location - len(first_digits_str))}"
 
-    products = {
+    products: Dict[str, Dict[str, Any]] = {
         "milk": {"price": Price(1.50), "quantity": 10},
         "eggs": {"price": Price(0.20), "quantity": 100},
         "cheese": {"price": Price(2.00), "quantity": 10},
@@ -76,7 +76,7 @@ class ProductModel(Model):
         return "product"
 
     def __iter__(self) -> Iterator[str]:
-        for item in self.products:
+        for item in self.products:  # type: str
             yield item
 
     def get(self, item: str) -> Dict[str, int]:
@@ -89,7 +89,7 @@ class ProductModel(Model):
 class ConsoleView(View):
     """Concrete console view."""
 
-    def show_item_list(self, item_type: str, item_list: List[str]) -> None:
+    def show_item_list(self, item_type: str, item_list: Dict[str, Any]) -> None:
         print("{} LIST:".format(item_type.upper()))
         for item in item_list:
             print(item)
@@ -97,18 +97,18 @@ class ConsoleView(View):
 
     @staticmethod
     def capitalizer(string: str) -> str:
-        return "{}{}".format(string[0].upper(), string[1:].lower())
+        return f"{string[0].upper()}{ string[1:].lower()}"
 
     def show_item_information(self, item_type: str, item_name: str, item_info: Dict[str, int]) -> None:
-        print("{} INFORMATION:".format(item_type.upper()))
-        printout: str = "Name: {}".format(item_name)
+        print(f"{item_type.upper()} INFORMATION:")
+        printout: str = f"Name: {item_name}"
         for key, value in item_info.items():
             printout += ", " + self.capitalizer(str(key)) + ": " + str(value)
         printout += "\n"
         print(printout)
 
     def item_not_found(self, item_type: str, item_name: str) -> None:
-        print('That {} "{}" does not exist in the records'.format(item_type, item_name))
+        print(f'That "{item_type}" "{item_name}" does not exist in the records')
 
 
 class ItemController(Controller):
@@ -125,7 +125,7 @@ class ItemController(Controller):
 
     def show_item_information(self, item_name: str) -> None:
         try:
-            item_info: List[str] = self._model.get(item_name)
+            item_info: Dict[str, Any] = self._model.get(item_name)
         except KeyError:
             item_type: str = self._model.item_type
             self._view.item_not_found(item_type, item_name)
@@ -145,7 +145,7 @@ if __name__ == "__main__":
     controller.show_item_information("arepas")
 
 
-### OUTPUT ###
+# OUTPUT #
 # PRODUCT LIST:
 # cheese
 # eggs

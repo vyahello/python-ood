@@ -4,10 +4,10 @@ import time
 class Producer:
     """Defines the resource-intensive object to instantiate."""
 
-    def produce(self):
+    def produce(self) -> None:
         print("Producer is working hard!")
 
-    def meet(self):
+    def meet(self) -> None:
         print("Producer has time to meet you now")
 
 
@@ -30,7 +30,7 @@ class Proxy:
     def produce(self) -> None:
         print("Artist checking if producer is available ...")
         if not self.occupied:
-            producer = Producer()
+            producer: Producer = Producer()
             time.sleep(2)
             producer.meet()
         else:
@@ -38,7 +38,7 @@ class Proxy:
             print("Producer is busy!")
 
 
-proxy = Proxy()
+proxy: Proxy = Proxy()
 proxy.produce()
 proxy.occupied = True
 proxy.produce()

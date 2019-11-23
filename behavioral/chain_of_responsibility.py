@@ -8,21 +8,21 @@ class Handler:
     def __init__(self, successor: "Handler") -> None:
         self._successor: Handler = successor
 
-    def handler(self, req: int) -> None:
-        if not self.handle(req):
-            self._successor.handler(req)
+    def handler(self, request: int) -> None:
+        if not self.handle(request):
+            self._successor.handler(request)
 
     @abstractmethod
-    def handle(self, req: int) -> bool:
+    def handle(self, request: int) -> bool:
         pass
 
 
 class ConcreteHandler1(Handler):
     """Concrete handler 1."""
 
-    def handle(self, req: int) -> bool:
-        if 0 < req <= 10:
-            print("Request {} handled in handler 1".format(req))
+    def handle(self, request: int) -> bool:
+        if 0 < request <= 10:
+            print(f"Request {request} handled in handler 1")
             return True
         return False
 
@@ -30,9 +30,9 @@ class ConcreteHandler1(Handler):
 class DefaultHandler(Handler):
     """Default handler."""
 
-    def handle(self, req: int) -> bool:
+    def handle(self, request: int) -> bool:
         """If there is no handler available."""
-        print("End of chain, no handler for {}".format(req))
+        print(f"End of chain, no handler for {request}")
         return True
 
 
@@ -42,16 +42,16 @@ class Client:
     def __init__(self) -> None:
         self._handler: Handler = ConcreteHandler1(DefaultHandler(None))
 
-    def delegate(self, req: List[int]) -> None:
-        for r in req:
-            self._handler.handler(r)
+    def delegate(self, request: List[int]) -> None:
+        for next_request in request:
+            self._handler.handler(next_request)
 
 
 # Create a client
-c = Client()
+client: Client = Client()
 
 # Create requests
-requests = [2, 5, 30]
+requests: List[int] = [2, 5, 30]
 
 # Send the request
-c.delegate(requests)
+client.delegate(requests)

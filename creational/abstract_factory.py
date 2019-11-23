@@ -45,7 +45,7 @@ class Dog(Pet):
     """A dog pet."""
 
     def __init__(self, name: str) -> None:
-        self._name = name
+        self._name: str = name
 
     def speak(self) -> str:
         return f'"{self._name}" says Woof!'
@@ -79,7 +79,7 @@ class Cat(Pet):
     """A cat pet."""
 
     def __init__(self, name: str) -> None:
-        self._name = name
+        self._name: str = name
 
     def speak(self) -> str:
         return f'"{self._name}" says Moew!'

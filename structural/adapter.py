@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Any
 
 
 class Speaker(ABC):
@@ -38,11 +39,11 @@ class British(Speaker):
 class Adapter:
     """Changes the generic method name to individualized method names."""
 
-    def __init__(self, obj, **adapted_method) -> None:
+    def __init__(self, obj: Any, **adapted_method: Any) -> None:
         self._object = obj
         self.__dict__.update(adapted_method)
 
-    def __getattr__(self, item):
+    def __getattr__(self, item: Any) -> Any:
         return getattr(self._object, item)
 
 

@@ -1,5 +1,6 @@
 import copy
 from abc import ABC, abstractmethod
+from typing import Dict, Any
 
 
 class Machine(ABC):
@@ -26,7 +27,7 @@ class Prototype:
     """A prototype object."""
 
     def __init__(self) -> None:
-        self._elements: dict = {}
+        self._elements: Dict[Any, Any] = {}
 
     def register_object(self, name: str, machine: Machine) -> None:
         self._elements[name] = machine
@@ -34,8 +35,8 @@ class Prototype:
     def unregister_object(self, name: str) -> None:
         del self._elements[name]
 
-    def clone(self, name: str, **attr) -> Car:
-        obj = copy.deepcopy(self._elements[name])
+    def clone(self, name: str, **attr: Any) -> Car:
+        obj: Any = copy.deepcopy(self._elements[name])
         obj.__dict__.update(attr)
         return obj
 
@@ -43,7 +44,7 @@ class Prototype:
 # prototypical car object to be cloned
 primary_car: Machine = Car()
 print(primary_car.summary())
-prototype = Prototype()
+prototype: Prototype = Prototype()
 prototype.register_object("skylark", primary_car)
 
 # clone a car object

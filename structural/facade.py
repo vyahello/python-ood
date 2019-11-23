@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import time
-from typing import List, Tuple, Iterator
+from typing import List, Tuple, Iterator, Type
 
 _sleep: float = 0.2
 
@@ -14,7 +14,7 @@ class TestCase(ABC):
 
 
 class TestCaseOne(TestCase):
-    """Concrete test case."""
+    """Concrete test case one."""
 
     def __init__(self, name: str) -> None:
         self._name: str = name
@@ -22,7 +22,7 @@ class TestCaseOne(TestCase):
     def run(self) -> None:
         print("{:#^20}".format(self._name))
         time.sleep(_sleep)
-        print("Setting up")
+        print("Setting up testcase one")
         time.sleep(_sleep)
         print("Running test")
         time.sleep(_sleep)
@@ -32,7 +32,7 @@ class TestCaseOne(TestCase):
 
 
 class TestCaseTwo(TestCase):
-    """Concrete test case."""
+    """Concrete test case two."""
 
     def __init__(self, name: str) -> None:
         self._name: str = name
@@ -40,7 +40,7 @@ class TestCaseTwo(TestCase):
     def run(self) -> None:
         print("{:#^20}".format(self._name))
         time.sleep(_sleep)
-        print("Setting up")
+        print("Setting up testcase two")
         time.sleep(_sleep)
         print("Running test")
         time.sleep(_sleep)
@@ -50,7 +50,7 @@ class TestCaseTwo(TestCase):
 
 
 class TestCaseThree(TestCase):
-    """Concrete test case."""
+    """Concrete test case three."""
 
     def __init__(self, name: str) -> None:
         self._name: str = name
@@ -58,7 +58,7 @@ class TestCaseThree(TestCase):
     def run(self) -> None:
         print("{:#^20}".format(self._name))
         time.sleep(_sleep)
-        print("Setting up")
+        print("Setting up testcase three")
         time.sleep(_sleep)
         print("Running test")
         time.sleep(_sleep)
@@ -73,12 +73,12 @@ class TestSuite:
     A facade class itself.
     """
 
-    def __init__(self, test_cases: List[TestCase]) -> None:
-        self._test_cases = test_cases
+    def __init__(self, testcases: List[TestCase]) -> None:
+        self._testcases = testcases
 
     def run(self) -> None:
-        for test_case in self._test_cases:
-            test_case.run()
+        for testcase in self._testcases:  # type: TestCase
+            testcase.run()
 
 
 test_cases: List[TestCase] = [TestCaseOne("TC1"), TestCaseTwo("TC2"), TestCaseThree("TC3")]
@@ -119,13 +119,12 @@ class Facade(Interface):
     """Facade object."""
 
     def __init__(self):
-        self._all: Tuple[Interface] = (A, B, C)
+        self._all: Tuple[Type[Interface], ...] = (A, B, C)
 
     def run(self) -> Iterator[Interface]:
-        for obj in self._all:
+        for obj in self._all:  # type: Type[Interface]
             yield obj
 
 
 if __name__ == "__main__":
-    lst = [cls().run() for cls in Facade().run()]
-    print(*lst)
+    print(*(cls().run() for cls in Facade().run()))

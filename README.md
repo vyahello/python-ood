@@ -80,7 +80,7 @@ class ShapeFactory:
     """A shape factory."""
 
     def __init__(self, shape: str) -> None:
-        self._shape = shape
+        self._shape: str = shape
 
     def get_shape(self) -> Shape:
         if self._shape == "circle":
@@ -91,13 +91,13 @@ class ShapeFactory:
 
 
 # circle shape
-factory = ShapeFactory(shape="circle")
+factory: ShapeFactory = ShapeFactory(shape="circle")
 circle: Shape = factory.get_shape()
 print(circle.__class__.__name__)
 print(circle.draw())
 
 # square shape
-factory = ShapeFactory(shape="square")
+factory: ShapeFactory = ShapeFactory(shape="square")
 square: Shape = factory.get_shape()
 print(square.__class__.__name__)
 print(square.draw())
@@ -117,6 +117,7 @@ class Pet(ABC):
 
     @abstractmethod
     def speak(self) -> str:
+        """Interface for a pet to speak."""
         pass
 
 
@@ -124,33 +125,29 @@ class Dog(Pet):
     """A simple dog class."""
 
     def __init__(self, name: str) -> None:
-        self._name: str = name
+        self._dog_name: str = name
 
     def speak(self) -> str:
-        return f'{self._name} says Woof!'
+        return f"{self._dog_name} says Woof!"
 
 
 class Cat(Pet):
     """A simple cat class."""
 
     def __init__(self, name: str) -> None:
-        self._name: str = name
+        self._cat_name: str = name
 
     def speak(self) -> str:
-        return f'{self._name} says Meow!'
+        return f"{self._cat_name} says Meow!"
 
 
 def get_pet(pet: str) -> Pet:
     """The factory method."""
-    return {
-        'dog': Dog("Hope"),
-        'cat': Cat("Faith")
-    }[pet]
+    return {"dog": Dog("Hope"), "cat": Cat("Faith")}[pet]
 
 
-# return Cat class object
-get_pet('cat')  
-
+# returns Cat class object
+get_pet("cat")
 ```
 ### Abstract factory
 In abstract factory a client expects to receive family related objects. But don't have to know which family it is until run time. Abstract factory is related to factory method and concrete product are singletons.
@@ -210,7 +207,7 @@ class Dog(Pet):
     """A dog pet."""
 
     def __init__(self, name: str) -> None:
-        self._name = name
+        self._name: str = name
 
     def speak(self) -> str:
         return f'"{self._name}" says Woof!'
@@ -244,7 +241,7 @@ class Cat(Pet):
     """A cat pet."""
 
     def __init__(self, name: str) -> None:
-        self._name = name
+        self._name: str = name
 
     def speak(self) -> str:
         return f'"{self._name}" says Moew!'
@@ -305,6 +302,9 @@ Useful if you want to share cached information to multiple objects.
 
 **Classic singleton**
 ```python
+from typing import Any, Dict
+
+
 class Singleton:
     """Makes all instances as the same object."""
 
@@ -314,11 +314,11 @@ class Singleton:
         return cls._instance
 
 
-def singleton(cls):
+def singleton(cls: Any) -> Any:
     """A singleton decorator."""
-    instances = {}
+    instances: Dict[Any, Any] = {}
 
-    def get_instance():
+    def get_instance() -> Any:
         if cls not in instances:
             instances[cls] = cls()
         return instances[cls]
@@ -333,15 +333,15 @@ class Bar:
     pass
 
 
-singleton_one = Singleton()
-singleton_two = Singleton()
+singleton_one: Singleton = Singleton()
+singleton_two: Singleton = Singleton()
 
 print(id(singleton_one))
 print(id(singleton_two))
 print(singleton_one is singleton_two)
 
-bar_one = Bar()
-bar_two = Bar()
+bar_one: Bar = Bar()
+bar_two: Bar = Bar()
 print(id(bar_one))
 print(id(bar_two))
 print(bar_one is bar_two)
@@ -349,14 +349,14 @@ print(bar_one is bar_two)
 
 **Borg singleton**
 ```python
-from typing import Any
+from typing import Dict, Any
 
 
-class Borg(object):
+class Borg:
     """Borg class making class attributes global.
     Safe the same state of all instances but instances are all different."""
 
-    _shared_state: dict = {}
+    _shared_state: Dict[Any, Any] = {}
 
     def __init__(self) -> None:
         self.__dict__ = self._shared_state
@@ -374,11 +374,11 @@ class BorgSingleton(Borg):
 
 
 # Create a singleton object and add out first acronym
-x = BorgSingleton(HTTP='Hyper Text Transfer Protocol')
+x: Borg = BorgSingleton(HTTP="Hyper Text Transfer Protocol")
 print(x)
 
 # Create another singleton which will add to the existent dict attribute
-y = BorgSingleton(SNMP='Simple Network Management Protocol')
+y: Borg = BorgSingleton(SNMP="Simple Network Management Protocol")
 print(y)
 ```
 
@@ -391,7 +391,6 @@ Builder reduces complexity of building objects.
   - Product: object being built
 - Exercise:
   - Build a car object
-
 ```python
 from abc import ABC, abstractmethod
 
@@ -428,9 +427,9 @@ class Car(Machine):
     """A car product."""
 
     def __init__(self) -> None:
-        self.model = None
-        self.tires = None
-        self.engine = None
+        self.model: str = None
+        self.tires: str = None
+        self.engine: str = None
 
     def summary(self) -> str:
         return "Car details: {} | {} | {}".format(self.model, self.tires, self.engine)
@@ -459,7 +458,7 @@ class Director:
     """A director. Responsible for `Car` assembling."""
 
     def __init__(self, builder_: Builder) -> None:
-        self._builder = builder_
+        self._builder: Builder = builder_
 
     def construct_machine(self) -> None:
         self._builder.add_model()
@@ -475,8 +474,8 @@ director: Director = Director(builder)
 director.construct_machine()
 car: Machine = director.release_machine()
 print(car.summary())
-
 ```
+
 ### Prototype
 Prototype patterns are related to abstract factory pattern.
 - Ideas:
@@ -490,6 +489,7 @@ Prototype patterns are related to abstract factory pattern.
 ```python
 import copy
 from abc import ABC, abstractmethod
+from typing import Dict, Any
 
 
 class Machine(ABC):
@@ -516,7 +516,7 @@ class Prototype:
     """A prototype object."""
 
     def __init__(self) -> None:
-        self._elements: dict = {}
+        self._elements: Dict[Any, Any] = {}
 
     def register_object(self, name: str, machine: Machine) -> None:
         self._elements[name] = machine
@@ -524,8 +524,8 @@ class Prototype:
     def unregister_object(self, name: str) -> None:
         del self._elements[name]
 
-    def clone(self, name: str, **attr) -> Car:
-        obj = copy.deepcopy(self._elements[name])
+    def clone(self, name: str, **attr: Any) -> Car:
+        obj: Any = copy.deepcopy(self._elements[name])
         obj.__dict__.update(attr)
         return obj
 
@@ -533,7 +533,7 @@ class Prototype:
 # prototypical car object to be cloned
 primary_car: Machine = Car()
 print(primary_car.summary())
-prototype = Prototype()
+prototype: Prototype = Prototype()
 prototype.register_object("skylark", primary_car)
 
 # clone a car object
@@ -553,7 +553,7 @@ MVC (Model-View-Controller) is a UI pattern intended to separate internal repres
 
 ```python
 from abc import ABC, abstractmethod
-from typing import List, Dict, Iterator
+from typing import List, Dict, Iterator, Any
 
 
 class Model(ABC):
@@ -569,6 +569,7 @@ class Model(ABC):
         that iterates over key,value pairs of its information."""
         pass
 
+    @property
     @abstractmethod
     def item_type(self) -> str:
         pass
@@ -615,12 +616,10 @@ class ProductModel(Model):
             try:
                 dot_location: int = first_digits_str.index(".")
             except ValueError:
-                return "{}.00".format(first_digits_str)
-            return "{}{}".format(
-                first_digits_str, "0" * (3 + dot_location - len(first_digits_str))
-            )
+                return f"{first_digits_str}.00"
+            return f"{first_digits_str}{'0' * (3 + dot_location - len(first_digits_str))}"
 
-    products = {
+    products: Dict[str, Dict[str, Any]] = {
         "milk": {"price": Price(1.50), "quantity": 10},
         "eggs": {"price": Price(0.20), "quantity": 100},
         "cheese": {"price": Price(2.00), "quantity": 10},
@@ -631,7 +630,7 @@ class ProductModel(Model):
         return "product"
 
     def __iter__(self) -> Iterator[str]:
-        for item in self.products:
+        for item in self.products:  # type: str
             yield item
 
     def get(self, item: str) -> Dict[str, int]:
@@ -644,7 +643,7 @@ class ProductModel(Model):
 class ConsoleView(View):
     """Concrete console view."""
 
-    def show_item_list(self, item_type: str, item_list: List[str]) -> None:
+    def show_item_list(self, item_type: str, item_list: Dict[str, Any]) -> None:
         print("{} LIST:".format(item_type.upper()))
         for item in item_list:
             print(item)
@@ -652,18 +651,18 @@ class ConsoleView(View):
 
     @staticmethod
     def capitalizer(string: str) -> str:
-        return "{}{}".format(string[0].upper(), string[1:].lower())
+        return f"{string[0].upper()}{ string[1:].lower()}"
 
     def show_item_information(self, item_type: str, item_name: str, item_info: Dict[str, int]) -> None:
-        print("{} INFORMATION:".format(item_type.upper()))
-        printout: str = "Name: {}".format(item_name)
+        print(f"{item_type.upper()} INFORMATION:")
+        printout: str = f"Name: {item_name}"
         for key, value in item_info.items():
             printout += ", " + self.capitalizer(str(key)) + ": " + str(value)
         printout += "\n"
         print(printout)
 
     def item_not_found(self, item_type: str, item_name: str) -> None:
-        print('That {} "{}" does not exist in the records'.format(item_type, item_name))
+        print(f'That "{item_type}" "{item_name}" does not exist in the records')
 
 
 class ItemController(Controller):
@@ -680,7 +679,7 @@ class ItemController(Controller):
 
     def show_item_information(self, item_name: str) -> None:
         try:
-            item_info: List[str] = self._model.get(item_name)
+            item_info: Dict[str, Any] = self._model.get(item_name)
         except KeyError:
             item_type: str = self._model.item_type
             self._view.item_not_found(item_type, item_name)
@@ -700,7 +699,7 @@ if __name__ == "__main__":
     controller.show_item_information("arepas")
 
 
-### OUTPUT ###
+# OUTPUT #
 # PRODUCT LIST:
 # cheese
 # eggs
@@ -797,7 +796,7 @@ class SumOfFloat(Number):
 
 integer_one: Number = Integer(value=5)
 integer_two: Number = Integer(value=6)
-sum_float = SumOfFloat(integer_one, integer_two)
+sum_float: Number = SumOfFloat(integer_one, integer_two)
 print(sum_float.value())
 ```
 
@@ -816,10 +815,10 @@ import time
 class Producer:
     """Defines the resource-intensive object to instantiate."""
 
-    def produce(self):
+    def produce(self) -> None:
         print("Producer is working hard!")
 
-    def meet(self):
+    def meet(self) -> None:
         print("Producer has time to meet you now")
 
 
@@ -842,7 +841,7 @@ class Proxy:
     def produce(self) -> None:
         print("Artist checking if producer is available ...")
         if not self.occupied:
-            producer = Producer()
+            producer: Producer = Producer()
             time.sleep(2)
             producer.meet()
         else:
@@ -850,7 +849,7 @@ class Proxy:
             print("Producer is busy!")
 
 
-proxy = Proxy()
+proxy: Proxy = Proxy()
 proxy.produce()
 proxy.occupied = True
 proxy.produce()
@@ -867,6 +866,7 @@ Adapter patterns converts interface of a class into another one a client is expe
 
 ```python
 from abc import ABC, abstractmethod
+from typing import Any
 
 
 class Speaker(ABC):
@@ -906,11 +906,11 @@ class British(Speaker):
 class Adapter:
     """Changes the generic method name to individualized method names."""
 
-    def __init__(self, obj, **adapted_method) -> None:
+    def __init__(self, obj: Any, **adapted_method: Any) -> None:
         self._object = obj
         self.__dict__.update(adapted_method)
 
-    def __getattr__(self, item):
+    def __getattr__(self, item: Any) -> Any:
         return getattr(self._object, item)
 
 
@@ -934,6 +934,7 @@ for speaker in speakers:
 
 ```python
 from abc import ABC, abstractmethod
+from typing import Sequence, List
 
 
 class Component(ABC):
@@ -948,7 +949,7 @@ class Child(Component):
     """Concrete child component."""
 
     def __init__(self, *args: str) -> None:
-        self._args: str = args
+        self._args: Sequence[str] = args
 
     def name(self) -> str:
         return self._args[0]
@@ -960,9 +961,9 @@ class Child(Component):
 class Composite(Component):
     """Concrete class maintains the tree recursive structure."""
 
-    def __init__(self, *args: str):
-        self._args: str = args
-        self._children: list = []
+    def __init__(self, *args: str) -> None:
+        self._args: Sequence[str] = args
+        self._children: List[Component] = []
 
     def name(self) -> str:
         return self._args[0]
@@ -975,7 +976,7 @@ class Composite(Component):
 
     def function(self) -> None:
         print(f'"{self.name()}" component')
-        for child in self._children:
+        for child in self._children:  # type: Component
             child.function()
 
 
@@ -1035,7 +1036,7 @@ class DrawApiTwo(DrawApi):
         print(f"API 2 drawing a circle at ({x}, {y} with radius {radius}!)")
 
 
-class DrawCircle(object):
+class DrawCircle(Circle):
     """Implementation-independent abstraction: e.g there could be a rectangle class!."""
 
     def __init__(self, x: int, y: int, radius: int, draw_api: DrawApi) -> None:
@@ -1064,59 +1065,9 @@ The Facade pattern is a way to provide a simpler unified interface to a more com
 It provides an easier way to access functions of the underlying system by providing a single entry point.
 
 ```python
-from typing import Tuple, Iterator
-import abc
-
-
-class Interface(abc.ABC):
-    """Abstract interface."""
-
-    @abc.abstractmethod
-    def run(self) -> str:
-        pass
-
-
-class A(Interface):
-    """Implement interface."""
-
-    def run(self) -> str:
-        return 'A.run()'
-
-
-class B(Interface):
-    """Implement interface."""
-
-    def run(self) -> str:
-        return 'B.run()'
-
-
-class C(Interface):
-    """Implement interface."""
-
-    def run(self) -> str:
-        return 'C.run()'
-
-
-class Facade(Interface):
-    """Facade object."""
-
-    def __init__(self):
-        self._all: Tuple[Interface] = (A, B, C)
-
-    def run(self) -> Iterator[Interface]:
-        for obj in self._all:
-            yield obj
-
-
-if __name__ == '__main__':
-    lst = [cls().run() for cls in Facade().run()]
-    print(*lst)
-```
-
-```python
 from abc import ABC, abstractmethod
 import time
-from typing import List
+from typing import List, Tuple, Iterator, Type
 
 _sleep: float = 0.2
 
@@ -1130,7 +1081,7 @@ class TestCase(ABC):
 
 
 class TestCaseOne(TestCase):
-    """Concrete test case."""
+    """Concrete test case one."""
 
     def __init__(self, name: str) -> None:
         self._name: str = name
@@ -1138,7 +1089,7 @@ class TestCaseOne(TestCase):
     def run(self) -> None:
         print("{:#^20}".format(self._name))
         time.sleep(_sleep)
-        print("Setting up")
+        print("Setting up testcase one")
         time.sleep(_sleep)
         print("Running test")
         time.sleep(_sleep)
@@ -1148,7 +1099,7 @@ class TestCaseOne(TestCase):
 
 
 class TestCaseTwo(TestCase):
-    """Concrete test case."""
+    """Concrete test case two."""
 
     def __init__(self, name: str) -> None:
         self._name: str = name
@@ -1156,7 +1107,7 @@ class TestCaseTwo(TestCase):
     def run(self) -> None:
         print("{:#^20}".format(self._name))
         time.sleep(_sleep)
-        print("Setting up")
+        print("Setting up testcase two")
         time.sleep(_sleep)
         print("Running test")
         time.sleep(_sleep)
@@ -1166,7 +1117,7 @@ class TestCaseTwo(TestCase):
 
 
 class TestCaseThree(TestCase):
-    """Concrete test case."""
+    """Concrete test case three."""
 
     def __init__(self, name: str) -> None:
         self._name: str = name
@@ -1174,7 +1125,7 @@ class TestCaseThree(TestCase):
     def run(self) -> None:
         print("{:#^20}".format(self._name))
         time.sleep(_sleep)
-        print("Setting up")
+        print("Setting up testcase three")
         time.sleep(_sleep)
         print("Running test")
         time.sleep(_sleep)
@@ -1189,17 +1140,61 @@ class TestSuite:
     A facade class itself.
     """
 
-    def __init__(self, test_cases: List[TestCase]) -> None:
-        self._test_cases = test_cases
+    def __init__(self, testcases: List[TestCase]) -> None:
+        self._testcases = testcases
 
     def run(self) -> None:
-        for test_case in self._test_cases:
-            test_case.run()
+        for testcase in self._testcases:  # type: TestCase
+            testcase.run()
 
 
 test_cases: List[TestCase] = [TestCaseOne("TC1"), TestCaseTwo("TC2"), TestCaseThree("TC3")]
 test_suite = TestSuite(test_cases)
 test_suite.run()
+
+
+class Interface(ABC):
+    """Abstract interface."""
+
+    @abstractmethod
+    def run(self) -> str:
+        pass
+
+
+class A(Interface):
+    """Implement interface."""
+
+    def run(self) -> str:
+        return "A.run()"
+
+
+class B(Interface):
+    """Implement interface."""
+
+    def run(self) -> str:
+        return "B.run()"
+
+
+class C(Interface):
+    """Implement interface."""
+
+    def run(self) -> str:
+        return "C.run()"
+
+
+class Facade(Interface):
+    """Facade object."""
+
+    def __init__(self):
+        self._all: Tuple[Type[Interface], ...] = (A, B, C)
+
+    def run(self) -> Iterator[Interface]:
+        for obj in self._all:  # type: Type[Interface]
+            yield obj
+
+
+if __name__ == "__main__":
+    print(*(cls().run() for cls in Facade().run()))
 ```
 
 ## Behavioral
@@ -1218,11 +1213,14 @@ Observer pattern establishes one to many relationship between subject and multip
   - Concrete Subjects
 
 ```python
+from typing import List
+
+
 class Subject:
     """Represents what is being observed. Needs to be monitored."""
 
     def __init__(self, name: str = "") -> None:
-        self._observers: list = []
+        self._observers: List["TempObserver"] = []
         self._name: str = name
         self._temperature: int = 0
 
@@ -1259,7 +1257,7 @@ class Subject:
 class TempObserver:
     """Represents an observer class. Needs to be notified."""
 
-    def update(self, subject: Subject):
+    def update(self, subject: Subject) -> None:
         print(f"Temperature Viewer: {subject.name} has Temperature {subject.temperature}")
 
 
@@ -1362,27 +1360,22 @@ Composite pattern is related to iterator pattern.
 
 **Iterator function**
 ```python
-from typing import Iterator, Tuple
+from typing import Iterator, Tuple, List
 
 
 def count_to(count: int) -> Iterator[Tuple[int, str]]:
     """Our iterator implementation."""
-    numbers_in_german = ['einn', 'zwei', 'drei', 'veir', 'funf']
-    iterator = zip(range(1, count + 1), numbers_in_german)
-    for position, number in iterator:
+    numbers_in_german: List[str] = ["einn", "zwei", "drei", "veir", "funf"]
+    iterator: Iterator[Tuple[int, str]] = zip(range(1, count + 1), numbers_in_german)
+    for position, number in iterator:  # type: int, str
         yield position, number
 
 
-for number in count_to(3):
-    print("{} in german is {}".format(*number))
-```
-
-**Iterator class**
-```python
-from typing import Iterator
+for number_ in count_to(3):  # type: Tuple[int]
+    print("{} in german is {}".format(*number_))
 
 
-class IteratorSequence(object):
+class IteratorSequence:
     """Represent iterator sequence object."""
 
     def __init__(self, capacity: int) -> None:
@@ -1395,9 +1388,9 @@ class IteratorSequence(object):
         return self
 
 
-iterator = IteratorSequence(capacity=10)
-for _ in range(10):
-    print(next(iterator))
+iterator_: IteratorSequence = IteratorSequence(capacity=10)
+for _ in range(10):  # type: int
+    print(next(iterator_))
 ```
 
 ### Strategy
@@ -1469,10 +1462,10 @@ from abc import abstractmethod
 from typing import List
 
 
-class Handler(object):
+class Handler:
     """Abstract handler."""
 
-    def __init__(self, successor: 'Handler') -> None:
+    def __init__(self, successor: "Handler") -> None:
         self._successor: Handler = successor
 
     def handler(self, request: int) -> None:
@@ -1480,7 +1473,7 @@ class Handler(object):
             self._successor.handler(request)
 
     @abstractmethod
-    def handle(self, request: int) -> None:
+    def handle(self, request: int) -> bool:
         pass
 
 
@@ -1489,8 +1482,9 @@ class ConcreteHandler1(Handler):
 
     def handle(self, request: int) -> bool:
         if 0 < request <= 10:
-            print("Request {} handled in handler 1".format(request))
+            print(f"Request {request} handled in handler 1")
             return True
+        return False
 
 
 class DefaultHandler(Handler):
@@ -1498,29 +1492,29 @@ class DefaultHandler(Handler):
 
     def handle(self, request: int) -> bool:
         """If there is no handler available."""
-        print("End of chain, no handler for {}".format(request))
+        print(f"End of chain, no handler for {request}")
         return True
 
 
-class Client(object):
+class Client:
     """Using handlers."""
 
     def __init__(self) -> None:
         self._handler: Handler = ConcreteHandler1(DefaultHandler(None))
 
-    def delegate(self, requests: List[int]) -> None:
-        for request in requests:
-            self._handler.handler(request)
+    def delegate(self, request: List[int]) -> None:
+        for next_request in request:
+            self._handler.handler(next_request)
 
 
 # Create a client
-c = Client()
+client: Client = Client()
 
 # Create requests
-requests = [2, 5, 30]
+requests: List[int] = [2, 5, 30]
 
 # Send the request
-c.delegate(requests)
+client.delegate(requests)
 ```
 
 ## Other qualities

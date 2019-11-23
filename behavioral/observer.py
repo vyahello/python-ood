@@ -1,8 +1,11 @@
+from typing import List
+
+
 class Subject:
     """Represents what is being observed. Needs to be monitored."""
 
     def __init__(self, name: str = "") -> None:
-        self._observers: list = []
+        self._observers: List["TempObserver"] = []
         self._name: str = name
         self._temperature: int = 0
 
@@ -39,7 +42,7 @@ class Subject:
 class TempObserver:
     """Represents an observer class. Needs to be notified."""
 
-    def update(self, subject: Subject):
+    def update(self, subject: Subject) -> None:
         print(f"Temperature Viewer: {subject.name} has Temperature {subject.temperature}")
 
 
