@@ -1,5 +1,5 @@
 # Python OOD
-> Describes most useful python design patterns.
+> Describes most useful python object oriented design patterns.
 
 [![Build Status](https://api.travis-ci.org/vyahello/python-ood.svg?branch=master)](https://travis-ci.org/vyahello/python-ood)
 
@@ -34,13 +34,14 @@
   - [Chain of responsibility](#chain-of-responsibility)
 - [Other qualities](#other-qualities)
 - [Development notes](#development-notes)
+  - [Testing]()
   - [Release notes](#release-notes)
   - [Meta](#meta)
   - [Contributing](#contributing)
 
 ## Creational
 Creational types of patterns used to create objects in a systematic way. Supports flexibility and different subtypes of objects from the same class at runtime. 
-Here **_polymorphism_** is often used.
+Here **polymorphism** is often used.
 
 ### Factory method
 Factory method defines an interface for creating an object but defers object instantiation to run time.
@@ -161,6 +162,7 @@ In abstract factory a client expects to receive family related objects. But don'
 
 ```python
 from abc import ABC, abstractmethod
+from typing import Generator
 
 
 class Pet(ABC):
@@ -206,14 +208,15 @@ class PetStore(ABC):
 class Dog(Pet):
     """A dog pet."""
 
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, type_: str) -> None:
         self._name: str = name
+        self._type: str = type_
 
     def speak(self) -> str:
         return f'"{self._name}" says Woof!'
 
     def type(self) -> str:
-        return "Dog"
+        return f"{self._type} dog"
 
 
 class DogFood(Food):
@@ -227,7 +230,7 @@ class DogFactory(PetFactory):
     """A dog factory."""
 
     def __init__(self) -> None:
-        self._dog: Pet = Dog(name="Spike")
+        self._dog: Pet = Dog(name="Spike", type_="bulldog")
         self._food: Food = DogFood()
 
     def pet(self) -> Pet:
@@ -240,14 +243,15 @@ class DogFactory(PetFactory):
 class Cat(Pet):
     """A cat pet."""
 
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, type_: str) -> None:
         self._name: str = name
+        self._type: str = type_
 
     def speak(self) -> str:
         return f'"{self._name}" says Moew!'
 
     def type(self) -> str:
-        return "Cat"
+        return f"{self._type} cat"
 
 
 class CatFood(Food):
@@ -261,7 +265,7 @@ class CatFactory(PetFactory):
     """A dog factory."""
 
     def __init__(self) -> None:
-        self._cat: Pet = Cat(name="Hope")
+        self._cat: Pet = Cat(name="Hope", type_="persian")
         self._food: Food = CatFood()
 
     def pet(self) -> Pet:
@@ -275,26 +279,25 @@ class FluffyStore(PetStore):
     """Houses our abstract pet factory."""
 
     def __init__(self, pet_factory: PetFactory) -> None:
-        self._pet_factory: PetFactory = pet_factory
+        self._pet: Pet = pet_factory.pet()
+        self._pet_food: Food = pet_factory.food()
 
-    def show_pet(self):
-        pet: Pet = self._pet_factory.pet()
-        pet_food: Food = self._pet_factory.food()
-        print(f"Our pet is {pet.type()}")
-        print(f"{pet.type()} {pet.speak()}")
-        print(f"It eats {pet_food.show()} food")
+    def show_pet(self) -> Generator[str, None, None]:
+        yield f"Our pet is {self._pet.type()}"
+        yield f"{self._pet.type()} {self._pet.speak()}"
+        yield f"It eats {self._pet_food.show()} food"
+
 
 
 # cat factory
 cat_factory: PetFactory = CatFactory()
 store: PetStore = FluffyStore(cat_factory)
-store.show_pet()
+print(tuple(store.show_pet()))
 
 # dog factory
 dog_factory: PetFactory = DogFactory()
 store: PetStore = FluffyStore(dog_factory)
-store.show_pet()
-
+print(tuple(store.show_pet()))
 ```
 ### Singleton
 Python has global variables and modules which are **_singletons_**. Singleton allows only one object to be instantiated from a class template.
@@ -1527,6 +1530,13 @@ client.delegate(requests)
 **Cohesion** refers to how independent the software component is. More cohesion is better.
 
 ## Development notes
+
+### Code analysis
+From the root directory of your shell please run following command to start static code assessment (it will check code with linter rules and unit testing):
+
+```bash
+~ ./run-code-analysis.sh 
+```
 
 ### Release notes
 

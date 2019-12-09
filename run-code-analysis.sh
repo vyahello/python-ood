@@ -38,6 +38,10 @@ function install-dependencies {
 }
 
 
+function run-unittests {
+    echo "Running unittests ..." && ( pytest -m unittest )
+}
+
 
 function run-pylint-analysis() {
     echo "Running pylint analysis ..." && ( pylint $(find "${PROJECT_FILES}" -iname "*.py") )
@@ -52,6 +56,7 @@ function run-black-analysis() {
 function run-code-analysis {
     echo "Running code analysis ..."
     remove-pycache-trash
+    run-unittests || store-failures "Unittests are failed!"
     run-pylint-analysis || store-failures "pylint analysis is failed!"
     run-black-analysis || store-failures "black analysis is failed!"
 
