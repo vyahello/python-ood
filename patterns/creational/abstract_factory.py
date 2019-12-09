@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Generator
 
 
 class Pet(ABC):
@@ -44,14 +45,15 @@ class PetStore(ABC):
 class Dog(Pet):
     """A dog pet."""
 
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, type_: str) -> None:
         self._name: str = name
+        self._type: str = type_
 
     def speak(self) -> str:
         return f'"{self._name}" says Woof!'
 
     def type(self) -> str:
-        return "Dog"
+        return f"{self._type} dog"
 
 
 class DogFood(Food):
@@ -65,7 +67,7 @@ class DogFactory(PetFactory):
     """A dog factory."""
 
     def __init__(self) -> None:
-        self._dog: Pet = Dog(name="Spike")
+        self._dog: Pet = Dog(name="Spike", type_="bulldog")
         self._food: Food = DogFood()
 
     def pet(self) -> Pet:
@@ -78,14 +80,15 @@ class DogFactory(PetFactory):
 class Cat(Pet):
     """A cat pet."""
 
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, type_: str) -> None:
         self._name: str = name
+        self._type: str = type_
 
     def speak(self) -> str:
         return f'"{self._name}" says Moew!'
 
     def type(self) -> str:
-        return "Cat"
+        return f"{self._type} cat"
 
 
 class CatFood(Food):
@@ -99,7 +102,7 @@ class CatFactory(PetFactory):
     """A dog factory."""
 
     def __init__(self) -> None:
-        self._cat: Pet = Cat(name="Hope")
+        self._cat: Pet = Cat(name="Hope", type_="persian")
         self._food: Food = CatFood()
 
     def pet(self) -> Pet:
@@ -113,22 +116,22 @@ class FluffyStore(PetStore):
     """Houses our abstract pet factory."""
 
     def __init__(self, pet_factory: PetFactory) -> None:
-        self._pet_factory: PetFactory = pet_factory
+        self._pet: Pet = pet_factory.pet()
+        self._pet_food: Food = pet_factory.food()
 
-    def show_pet(self):
-        pet: Pet = self._pet_factory.pet()
-        pet_food: Food = self._pet_factory.food()
-        print(f"Our pet is {pet.type()}")
-        print(f"{pet.type()} {pet.speak()}")
-        print(f"It eats {pet_food.show()} food")
+    def show_pet(self) -> Generator[str, None, None]:
+        yield f"Our pet is {self._pet.type()}"
+        yield f"{self._pet.type()} {self._pet.speak()}"
+        yield f"It eats {self._pet_food.show()} food"
 
 
-# cat factory
-cat_factory: PetFactory = CatFactory()
-store: PetStore = FluffyStore(cat_factory)
-store.show_pet()
+if __name__ == "__main__":
+    # cat factory
+    cat_factory: PetFactory = CatFactory()
+    store: PetStore = FluffyStore(cat_factory)
+    print(tuple(store.show_pet()))
 
-# dog factory
-dog_factory: PetFactory = DogFactory()
-store: PetStore = FluffyStore(dog_factory)
-store.show_pet()
+    # dog factory
+    dog_factory: PetFactory = DogFactory()
+    store: PetStore = FluffyStore(dog_factory)
+    print(tuple(store.show_pet()))
