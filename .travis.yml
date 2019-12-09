@@ -7,5 +7,7 @@ install:
     - pip install -r requirements.txt
 script:
     - ./run-code-analysis.sh
+after_success:
+  - coveralls
 notifications:
   email: false

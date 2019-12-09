@@ -2,6 +2,7 @@
 > Describes most useful python object oriented design patterns.
 
 [![Build Status](https://api.travis-ci.org/vyahello/python-ood.svg?branch=master)](https://travis-ci.org/vyahello/python-ood)
+[![Coverage Status](https://coveralls.io/repos/github/vyahello/python-ood/badge.svg?branch=master)](https://coveralls.io/github/vyahello/python-ood?branch=master)
 
 **Tools**
 > - `python 3+` basis
@@ -34,7 +35,7 @@
   - [Chain of responsibility](#chain-of-responsibility)
 - [Other qualities](#other-qualities)
 - [Development notes](#development-notes)
-  - [Testing]()
+  - [Code analysis](#code-analysis)
   - [Release notes](#release-notes)
   - [Meta](#meta)
   - [Contributing](#contributing)
@@ -1540,6 +1541,8 @@ From the root directory of your shell please run following command to start stat
 
 ### Release notes
 
+* 0.2.0
+    * Add tests coverage 
 * 0.1.1
     * Polish documentation
 * 0.1.0
