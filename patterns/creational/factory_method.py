@@ -43,11 +43,6 @@ class ShapeFactory:
         raise ShapeError(f'Could not find shape "{self._shape}"')
 
 
-factory = ShapeFactory(shape="circle")
-circle: Shape = factory.get_shape()  # returns our shape
-circle.draw()  # draw a circle
-
-
 class Pet(ABC):
     """Abstraction of a pet."""
 
@@ -82,5 +77,10 @@ def get_pet(pet: str) -> Pet:
     return {"dog": Dog("Hope"), "cat": Cat("Faith")}[pet]
 
 
-# return Cat class object
-get_pet("cat")
+if __name__ == "__main__":
+    factory: ShapeFactory = ShapeFactory(shape="circle")
+    circle: Shape = factory.get_shape()  # returns our shape
+    circle.draw()  # draw a circle
+
+    # return Cat class object
+    get_pet("cat")
