@@ -82,5 +82,5 @@ if __name__ == "__main__":
     circle: Shape = factory.get_shape()  # returns our shape
     circle.draw()  # draw a circle
 
-    # return Cat class object
+    # returns Cat class object
     get_pet("cat")
