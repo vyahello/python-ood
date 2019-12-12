@@ -3,7 +3,9 @@
 
 [![Build Status](https://api.travis-ci.org/vyahello/python-ood.svg?branch=master)](https://travis-ci.org/vyahello/python-ood)
 [![Coverage Status](https://coveralls.io/repos/github/vyahello/python-ood/badge.svg?branch=master)](https://coveralls.io/github/vyahello/python-ood?branch=master)
+
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
 
 **Tools**
 > - `python 3.6+` basis
