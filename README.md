@@ -5,7 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/vyahello/python-ood/badge.svg?branch=master)](https://coveralls.io/github/vyahello/python-ood?branch=master)
 
 **Tools**
-> - `python 3+` basis
+> - `python 3.6+` basis
 > - `pylint` code analyser
 > - `black` code formatter
 > - `travis CI`
