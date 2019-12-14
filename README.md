@@ -6,6 +6,7 @@
 
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
+[![Hits-of-Code](https://hitsofcode.com/github/vyahello/python-ood)](https://hitsofcode.com/view/github/vyahello/python-ood)
 
 **Tools**
 > - `python 3.6+` basis
