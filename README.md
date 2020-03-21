@@ -1,3 +1,8 @@
+![Screenshot](logo.png)
+
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Checked with pylint](https://img.shields.io/badge/pylint-checked-blue)](https://www.pylint.org)
 [![Build Status](https://api.travis-ci.org/vyahello/python-ood.svg?branch=master)](https://travis-ci.org/vyahello/python-ood)
 [![Coverage Status](https://coveralls.io/repos/github/vyahello/python-ood/badge.svg?branch=master)](https://coveralls.io/github/vyahello/python-ood?branch=master)
 [![Stars](https://img.shields.io/github/stars/vyahello/python-ood)](https://github.com/vyahello/python-ood/stargazers)
@@ -11,12 +16,12 @@
 > Describes most useful python object oriented design patterns.
 
 **Tools**
-> - `python 3.6+` basis
-> - `pylint` code analyser
-> - `black` code formatter
-> - `travis CI`
->
-> All code is fully type annotated ⭐
+- `python 3.6+` basis
+- `pylint` code analyser
+- `black` code formatter
+- `travis CI`
+
+Source code is fully type annotated ⭐
 
 ## Table of contents
 - [Creational](#creational)
@@ -157,6 +162,7 @@ def get_pet(pet: str) -> Pet:
 # returns Cat class object
 get_pet("cat")
 ```
+**[⬆ back to top](#table-of-contents)**
 ### Abstract factory
 In abstract factory a client expects to receive family related objects. But don't have to know which family it is until run time. Abstract factory is related to factory method and concrete product are singletons.
 - Implementation idea:
@@ -306,6 +312,7 @@ dog_factory: PetFactory = DogFactory()
 store: PetStore = FluffyStore(dog_factory)
 print(tuple(store.show_pet()))
 ```
+**[⬆ back to top](#table-of-contents)**
 ### Singleton
 Python has global variables and modules which are **_singletons_**. Singleton allows only one object to be instantiated from a class template.
 Useful if you want to share cached information to multiple objects.
@@ -391,6 +398,7 @@ print(x)
 y: Borg = BorgSingleton(SNMP="Simple Network Management Protocol")
 print(y)
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ### Builder
 Builder reduces complexity of building objects.
@@ -485,6 +493,7 @@ director.construct_machine()
 car: Machine = director.release_machine()
 print(car.summary())
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ### Prototype
 Prototype patterns are related to abstract factory pattern.
@@ -550,6 +559,7 @@ prototype.register_object("skylark", primary_car)
 cloned_car: Machine = prototype.clone("skylark")
 print(cloned_car.summary())
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ## Structural
 Structural type of patterns establish useful relationships between software components. Here **_inheritance_** is often used.
@@ -557,6 +567,7 @@ Structural type of patterns establish useful relationships between software comp
   - Route maps the user request to a `Controller` which...
   - Uses the `Model` to retrieve all of the necessary data, organizes it and send it off to the...
   - View, which then uses that data to render the web page
+**[⬆ back to top](#table-of-contents)**
 
 ### MVC
 MVC (Model-View-Controller) is a UI pattern intended to separate internal representation of data from ways it is presented to/from the user.
@@ -726,6 +737,7 @@ if __name__ == "__main__":
 #
 # That product "arepas" does not exist in the records
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ### Decorator
 Decorator type of patterns add new feature to an existing object. Supports dynamic changes.
@@ -759,6 +771,7 @@ print(hello_world(name="James"))
 print(hello_world.__name__)
 print(hello_world.__doc__)
 ```
+**[⬆ back to top](#table-of-contents)**
 
 **Decorator class**
 ```python
