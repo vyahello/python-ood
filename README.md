@@ -1,4 +1,4 @@
-![Screenshot](logo.png)
+![Screenshot](icon.png)
 
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -163,6 +163,7 @@ def get_pet(pet: str) -> Pet:
 get_pet("cat")
 ```
 **[⬆ back to top](#table-of-contents)**
+
 ### Abstract factory
 In abstract factory a client expects to receive family related objects. But don't have to know which family it is until run time. Abstract factory is related to factory method and concrete product are singletons.
 - Implementation idea:
@@ -313,6 +314,7 @@ store: PetStore = FluffyStore(dog_factory)
 print(tuple(store.show_pet()))
 ```
 **[⬆ back to top](#table-of-contents)**
+
 ### Singleton
 Python has global variables and modules which are **_singletons_**. Singleton allows only one object to be instantiated from a class template.
 Useful if you want to share cached information to multiple objects.
@@ -567,6 +569,7 @@ Structural type of patterns establish useful relationships between software comp
   - Route maps the user request to a `Controller` which...
   - Uses the `Model` to retrieve all of the necessary data, organizes it and send it off to the...
   - View, which then uses that data to render the web page
+
 **[⬆ back to top](#table-of-contents)**
 
 ### MVC
@@ -771,7 +774,6 @@ print(hello_world(name="James"))
 print(hello_world.__name__)
 print(hello_world.__doc__)
 ```
-**[⬆ back to top](#table-of-contents)**
 
 **Decorator class**
 ```python
@@ -822,6 +824,7 @@ integer_two: Number = Integer(value=6)
 sum_float: Number = SumOfFloat(integer_one, integer_two)
 print(sum_float.value())
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ### Proxy
 Proxy patterns postpones object creation unless it is necessary. Object is too expensive (resource intensive) to create that's why we have to create it once it is needed.
@@ -877,6 +880,7 @@ proxy.produce()
 proxy.occupied = True
 proxy.produce()
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ### Adapter
 Adapter patterns converts interface of a class into another one a client is expecting.
@@ -946,6 +950,7 @@ speakers.append(Adapter(british, speak=british.speak_english))
 for speaker in speakers:
     print(f"{speaker.type()} says '{speaker.speak()}'")
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ### Composite
 - Exercise:
@@ -1016,6 +1021,7 @@ top_menu.append_child(submenu_one)
 top_menu.append_child(submenu_two)
 top_menu.function()
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ### Bridge
 Bridge pattern separates the abstraction into different class hierarchies. 
@@ -1082,6 +1088,7 @@ circle_one.draw()
 circle_two: Circle = DrawCircle(3, 4, 6, DrawApiTwo())
 circle_two.draw()
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ### Facade
 The Facade pattern is a way to provide a simpler unified interface to a more complex system. 
@@ -1219,6 +1226,7 @@ class Facade(Interface):
 if __name__ == "__main__":
     print(*(cls().run() for cls in Facade().run()))
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ## Behavioral
 Behavioral patterns provide best practices of objects interaction. Methods and signatures are often used.
@@ -1299,6 +1307,7 @@ subject_one.notify()
 subject_one.temperature = 90
 subject_one.notify()
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ### Visitor
 Visitor pattern adds new features to existing hierarchy without changing it. Add new operations to existing classes dynamically.
@@ -1374,6 +1383,7 @@ home: House = ConcreteHouse()
 home.accept(hvac)
 home.accept(electrician)
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ### Iterator
 Composite pattern is related to iterator pattern.
@@ -1415,6 +1425,7 @@ iterator_: IteratorSequence = IteratorSequence(capacity=10)
 for _ in range(10):  # type: int
     print(next(iterator_))
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ### Strategy
 Strategy patterns used to dynamically change the behavior of an object. Add dynamically objects with `types` module.
@@ -1468,6 +1479,7 @@ second_strategy = Strategy(func=strategy_function_two)
 second_strategy.name = "Strategy two"
 second_strategy.execute()
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ### Chain of responsibility
 Thiss type of pattern decouples responsibility. Composite is related to this design pattern.
@@ -1539,6 +1551,7 @@ requests: List[int] = [2, 5, 30]
 # Send the request
 client.delegate(requests)
 ```
+**[⬆ back to top](#table-of-contents)**
 
 ## Other qualities
 **Completeness** depends on how much the software solution meets its requirements.
@@ -1548,6 +1561,8 @@ client.delegate(requests)
 **Coupling** how much different elements of a software are related. If there is strong coupling changes in one element affects another. Less coupling is desirable.
 
 **Cohesion** refers to how independent the software component is. More cohesion is better.
+
+**[⬆ back to top](#table-of-contents)**
 
 ## Development notes
 
