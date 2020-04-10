@@ -7,10 +7,10 @@
 [![Coverage Status](https://coveralls.io/repos/github/vyahello/python-ood/badge.svg?branch=master)](https://coveralls.io/github/vyahello/python-ood?branch=master)
 [![Stars](https://img.shields.io/github/stars/vyahello/python-ood)](https://github.com/vyahello/python-ood/stargazers)
 [![Issues](https://img.shields.io/github/issues/vyahello/python-ood)](https://github.com/vyahello/python-ood/issues)
-
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
 [![Hits-of-Code](https://hitsofcode.com/github/vyahello/python-ood)](https://hitsofcode.com/view/github/vyahello/python-ood)
+[![CodeFactor](https://www.codefactor.io/repository/github/vyahello/python-ood/badge)](https://www.codefactor.io/repository/github/vyahello/python-ood)
 
 # Python OOD
 > Describes most useful python object oriented design patterns.
