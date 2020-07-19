@@ -4,7 +4,6 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Checked with pylint](https://img.shields.io/badge/pylint-checked-blue)](https://www.pylint.org)
 [![Build Status](https://api.travis-ci.org/vyahello/python-ood.svg?branch=master)](https://travis-ci.org/vyahello/python-ood)
-[![Coverage Status](https://coveralls.io/repos/github/vyahello/python-ood/badge.svg?branch=master)](https://coveralls.io/github/vyahello/python-ood?branch=master)
 [![Stars](https://img.shields.io/github/stars/vyahello/python-ood)](https://github.com/vyahello/python-ood/stargazers)
 [![Issues](https://img.shields.io/github/issues/vyahello/python-ood)](https://github.com/vyahello/python-ood/issues)
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
