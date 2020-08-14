@@ -10,6 +10,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
 [![Hits-of-Code](https://hitsofcode.com/github/vyahello/python-ood)](https://hitsofcode.com/view/github/vyahello/python-ood)
 [![CodeFactor](https://www.codefactor.io/repository/github/vyahello/python-ood/badge)](https://www.codefactor.io/repository/github/vyahello/python-ood)
+[![Docs](https://img.shields.io/badge/docs-github-orange)](https://vyahello.github.io/python-ood)
 
 # Python OOD
 > Describes most useful python object oriented design patterns.
