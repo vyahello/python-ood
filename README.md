@@ -66,6 +66,7 @@ class Shape(ABC):
 
     @abstractmethod
     def draw(self) -> str:
+        """Draws a shape."""
         pass
 
 
@@ -79,6 +80,7 @@ class Circle(Shape):
     """A shape subclass."""
 
     def draw(self) -> str:
+        """Draws a circle."""
         return "Circle.draw"
 
 
@@ -86,6 +88,7 @@ class Square(Shape):
     """A shape subclass."""
 
     def draw(self) -> str:
+        """Draws a square."""
         return "Square.draw"
 
 
@@ -95,7 +98,8 @@ class ShapeFactory:
     def __init__(self, shape: str) -> None:
         self._shape: str = shape
 
-    def get_shape(self) -> Shape:
+    def shape(self) -> Shape:
+        """Returns a shape."""
         if self._shape == "circle":
             return Circle()
         if self._shape == "square":
@@ -105,13 +109,13 @@ class ShapeFactory:
 
 # circle shape
 factory: ShapeFactory = ShapeFactory(shape="circle")
-circle: Shape = factory.get_shape()
+circle: Shape = factory.shape()
 print(circle.__class__.__name__)
 print(circle.draw())
 
 # square shape
 factory: ShapeFactory = ShapeFactory(shape="square")
-square: Shape = factory.get_shape()
+square: Shape = factory.shape()
 print(square.__class__.__name__)
 print(square.draw())
 ```
