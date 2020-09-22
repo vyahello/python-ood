@@ -15,11 +15,11 @@
 # Python OOD
 > Describes most useful python object oriented design patterns.
 
-**Tools**
-- `python 3.6+` basis
-- `pylint` code analyser
-- `black` code formatter
-- `travis CI`
+## Tools
+- python 3.6+
+- [pylint](https://www.pylint.org/) code analyser
+- [black](https://black.readthedocs.io/en/stable/) code formatter
+- [travis](https://travis-ci.org/) CI
 
 Source code is fully type annotated ⭐
 
@@ -1592,11 +1592,24 @@ Author – Volodymyr Yahello vyahello@gmail.com
 Distributed under the `MIT` license. See [LICENSE](LICENSE.md) for more information.
 
 You can reach out me at:
-* [https://github.com/vyahello](https://github.com/vyahello)
+* [vyahello@gmail.com](vyahello@gmail.com)
 * [https://twitter.com/vyahello](https://twitter.com/vyahello)
 * [https://www.linkedin.com/in/volodymyr-yahello-821746127](https://www.linkedin.com/in/volodymyr-yahello-821746127)
 
 ### Contributing
-1. clone the repository
-2. configure Git for the first time after cloning with your `name` and `email`
+I would highly appreciate any contribution and support. If you are interested to add your ideas into project please follow next simple steps:
+
+1. Clone the repository
+2. Configure `git` for the first time after cloning with your `name` and `email`
 3. `pip install -r requirements.txt` to install all project dependencies
+4. Create your feature branch (git checkout -b feature/fooBar)
+5. Commit your changes (git commit -am 'Add some fooBar')
+6. Push to the branch (git push origin feature/fooBar)
+7. Create a new Pull Request
+
+### What's next
+
+All recent activities and ideas are described at project [issues](https://github.com/vyahello/python-ood/issues) page. 
+If you have ideas you want to change/implement please do not hesitate and create an issue.
+
+**[⬆ back to top](#table-of-contents)**
