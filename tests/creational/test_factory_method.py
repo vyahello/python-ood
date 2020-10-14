@@ -1,6 +1,16 @@
 from typing import Type
 import pytest
-from patterns.creational.factory_method import Shape, Circle, Square, ShapeFactory, ShapeError, Dog, Cat, Pet, get_pet
+from patterns.creational.factory_method import (
+    Shape,
+    Circle,
+    Square,
+    ShapeFactory,
+    ShapeError,
+    Dog,
+    Cat,
+    Pet,
+    get_pet,
+)
 from tests.marker import unittest
 
 
@@ -24,7 +34,9 @@ def test_draw_square(square: Shape) -> None:
     assert square.draw() == "Square.draw"
 
 
-@pytest.mark.parametrize("shape, instance", (("circle", Circle), ("square", Square)))
+@pytest.mark.parametrize(
+    "shape, instance", (("circle", Circle), ("square", Square))
+)
 def test_shape_factory(shape: str, instance: Type[Shape]) -> None:
     assert isinstance(ShapeFactory(shape).get_shape(), instance)
 

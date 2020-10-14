@@ -32,7 +32,10 @@ class View(ABC):
     def show_item_information(
         self, item_type: str, item_name: str, item_info: List[str]
     ) -> None:
-        """Will look for item information by iterating over key,value pairs yielded by item_info.items()."""
+        """
+        Will look for item information by iterating over
+        key,value pairs yielded by item_info.items().
+        """
         pass
 
     @abstractmethod
@@ -84,8 +87,10 @@ class ProductModel(Model):
     def get(self, item: str) -> Dict[str, int]:
         try:
             return self.products[item]
-        except KeyError as e:
-            raise KeyError(str(e) + " not in the model's item list.")
+        except KeyError as error:
+            raise KeyError(
+                str(error) + " not in the model's item list."
+            ) from error
 
 
 class ConsoleView(View):

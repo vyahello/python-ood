@@ -126,8 +126,7 @@ class Facade(Interface):
         self._all: Tuple[Type[Interface], ...] = (A, B, C)
 
     def run(self) -> Iterator[Interface]:
-        for obj in self._all:  # type: Type[Interface]
-            yield obj
+        yield from self._all
 
 
 if __name__ == "__main__":

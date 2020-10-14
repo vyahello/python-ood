@@ -91,11 +91,19 @@ def test_cat_factory_food(dog_factory: PetFactory) -> None:
     (
         (
             FluffyStore(CatFactory()),
-            ("Our pet is persian cat", 'persian cat "Hope" says Moew!', "It eats Whiskas food"),
+            (
+                "Our pet is persian cat",
+                'persian cat "Hope" says Moew!',
+                "It eats Whiskas food",
+            ),
         ),
         (
             FluffyStore(DogFactory()),
-            ("Our pet is bulldog dog", 'bulldog dog "Spike" says Woof!', "It eats Pedigree food"),
+            (
+                "Our pet is bulldog dog",
+                'bulldog dog "Spike" says Woof!',
+                "It eats Pedigree food",
+            ),
         ),
     ),
 )
