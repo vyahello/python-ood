@@ -15,13 +15,13 @@
 ## Tools
 
 ### Language(s)
-- python 3.6, 3.7, 3.8
+- python 3.6, 3.7, 3.8, 3.9
 
 ### Development
 - [pylint](https://www.pylint.org/) code analyser
 - [black](https://black.readthedocs.io/en/stable/) code formatter
 - [travis](https://travis-ci.org/) CI
-- [pytest](https://docs.pytest.org/en/stable/)
+- [pytest](https://docs.pytest.org/en/stable/) framework
 
 ## Table of contents
 - [Creational](#creational)
