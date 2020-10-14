@@ -4,24 +4,24 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Checked with pylint](https://img.shields.io/badge/pylint-checked-blue)](https://www.pylint.org)
 [![Build Status](https://api.travis-ci.org/vyahello/python-ood.svg?branch=master)](https://travis-ci.org/vyahello/python-ood)
-[![Stars](https://img.shields.io/github/stars/vyahello/python-ood)](https://github.com/vyahello/python-ood/stargazers)
-[![Issues](https://img.shields.io/github/issues/vyahello/python-ood)](https://github.com/vyahello/python-ood/issues)
-[![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
-[![Hits-of-Code](https://hitsofcode.com/github/vyahello/python-ood)](https://hitsofcode.com/view/github/vyahello/python-ood)
 [![CodeFactor](https://www.codefactor.io/repository/github/vyahello/python-ood/badge)](https://www.codefactor.io/repository/github/vyahello/python-ood)
+[![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![Docs](https://img.shields.io/badge/docs-github-orange)](https://vyahello.github.io/python-ood)
 
 # Python OOD
 > Describes most useful python object oriented design patterns.
 
 ## Tools
-- python 3.6+
+
+### Language(s)
+- python 3.6, 3.7, 3.8
+
+### Development
 - [pylint](https://www.pylint.org/) code analyser
 - [black](https://black.readthedocs.io/en/stable/) code formatter
 - [travis](https://travis-ci.org/) CI
-
-Source code is fully type annotated ⭐
+- [pytest](https://docs.pytest.org/en/stable/)
 
 ## Table of contents
 - [Creational](#creational)
@@ -44,7 +44,6 @@ Source code is fully type annotated ⭐
   - [Iterator](#iterator)
   - [Strategy](#strategy)
   - [Chain of responsibility](#chain-of-responsibility)
-- [Other qualities](#other-qualities)
 - [Development notes](#development-notes)
   - [Code analysis](#code-analysis)
   - [Release notes](#release-notes)
@@ -166,6 +165,7 @@ def get_pet(pet: str) -> Pet:
 # returns Cat class object
 get_pet("cat")
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Abstract factory
@@ -317,6 +317,7 @@ dog_factory: PetFactory = DogFactory()
 store: PetStore = FluffyStore(dog_factory)
 print(tuple(store.show_pet()))
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Singleton
@@ -404,6 +405,7 @@ print(x)
 y: Borg = BorgSingleton(SNMP="Simple Network Management Protocol")
 print(y)
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Builder
@@ -456,7 +458,9 @@ class Car(Machine):
         self.engine: str = None
 
     def summary(self) -> str:
-        return "Car details: {} | {} | {}".format(self.model, self.tires, self.engine)
+        return "Car details: {} | {} | {}".format(
+            self.model, self.tires, self.engine
+        )
 
 
 class SkyLarkBuilder(Builder):
@@ -499,6 +503,7 @@ director.construct_machine()
 car: Machine = director.release_machine()
 print(car.summary())
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Prototype
@@ -534,7 +539,9 @@ class Car(Machine):
         self._options: str = "Ex"
 
     def summary(self) -> str:
-        return "Car details: {} | {} | {}".format(self._name, self._color, self._options)
+        return "Car details: {} | {} | {}".format(
+            self._name, self._color, self._options
+        )
 
 
 class Prototype:
@@ -565,6 +572,7 @@ prototype.register_object("skylark", primary_car)
 cloned_car: Machine = prototype.clone("skylark")
 print(cloned_car.summary())
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Structural
@@ -611,8 +619,13 @@ class View(ABC):
         pass
 
     @abstractmethod
-    def show_item_information(self, item_type: str, item_name: str, item_info: List[str]) -> None:
-        """Will look for item information by iterating over key,value pairs yielded by item_info.items()."""
+    def show_item_information(
+        self, item_type: str, item_name: str, item_info: List[str]
+    ) -> None:
+        """
+        Will look for item information by iterating 
+        over key,value pairs yielded by item_info.items().
+        """
         pass
 
     @abstractmethod
@@ -664,8 +677,10 @@ class ProductModel(Model):
     def get(self, item: str) -> Dict[str, int]:
         try:
             return self.products[item]
-        except KeyError as e:
-            raise KeyError(str(e) + " not in the model's item list.")
+        except KeyError as error:
+            raise KeyError(
+                str(error) + " not in the model's item list."
+            ) from error
 
 
 class ConsoleView(View):
@@ -681,7 +696,9 @@ class ConsoleView(View):
     def capitalizer(string: str) -> str:
         return f"{string[0].upper()}{ string[1:].lower()}"
 
-    def show_item_information(self, item_type: str, item_name: str, item_info: Dict[str, int]) -> None:
+    def show_item_information(
+        self, item_type: str, item_name: str, item_info: Dict[str, int]
+    ) -> None:
         print(f"{item_type.upper()} INFORMATION:")
         printout: str = f"Name: {item_name}"
         for key, value in item_info.items():
@@ -744,6 +761,7 @@ if __name__ == "__main__":
 #
 # That product "arepas" does not exist in the records
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Decorator
@@ -828,6 +846,7 @@ integer_two: Number = Integer(value=6)
 sum_float: Number = SumOfFloat(integer_one, integer_two)
 print(sum_float.value())
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Proxy
@@ -884,10 +903,11 @@ proxy.produce()
 proxy.occupied = True
 proxy.produce()
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Adapter
-Adapter patterns converts interface of a class into another one a client is expecting.
+Adapter patterns convert interface of a class into another one that client is expecting.
 - Exercise:
   - Korean language: `speak_korean()`
   - British language: `speak_english()`
@@ -954,6 +974,7 @@ speakers.append(Adapter(british, speak=british.speak_english))
 for speaker in speakers:
     print(f"{speaker.type()} says '{speaker.speak()}'")
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Composite
@@ -1025,6 +1046,7 @@ top_menu.append_child(submenu_one)
 top_menu.append_child(submenu_two)
 top_menu.function()
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Bridge
@@ -1083,7 +1105,9 @@ class DrawCircle(Circle):
 
     def scale(self, percentage: int) -> None:
         if not isinstance(percentage, int):
-            raise ValueError(f'"{percentage}" value should be an integer data type!')
+            raise ValueError(
+                f'"{percentage}" value should be an integer data type!'
+            )
         self._radius *= percentage
 
 
@@ -1092,6 +1116,7 @@ circle_one.draw()
 circle_two: Circle = DrawCircle(3, 4, 6, DrawApiTwo())
 circle_two.draw()
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Facade
@@ -1182,7 +1207,11 @@ class TestSuite:
             testcase.run()
 
 
-test_cases: List[TestCase] = [TestCaseOne("TC1"), TestCaseTwo("TC2"), TestCaseThree("TC3")]
+test_cases: List[TestCase] = [
+    TestCaseOne("TC1"),
+    TestCaseTwo("TC2"),
+    TestCaseThree("TC3")
+]
 test_suite = TestSuite(test_cases)
 test_suite.run()
 
@@ -1223,13 +1252,13 @@ class Facade(Interface):
         self._all: Tuple[Type[Interface], ...] = (A, B, C)
 
     def run(self) -> Iterator[Interface]:
-        for obj in self._all:  # type: Type[Interface]
-            yield obj
+        yield from self._all
 
 
 if __name__ == "__main__":
     print(*(cls().run() for cls in Facade().run()))
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ## Behavioral
@@ -1311,6 +1340,7 @@ subject_one.notify()
 subject_one.temperature = 90
 subject_one.notify()
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Visitor
@@ -1387,6 +1417,7 @@ home: House = ConcreteHouse()
 home.accept(hvac)
 home.accept(electrician)
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Iterator
@@ -1429,6 +1460,7 @@ iterator_: IteratorSequence = IteratorSequence(capacity=10)
 for _ in range(10):  # type: int
     print(next(iterator_))
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Strategy
@@ -1483,10 +1515,11 @@ second_strategy = Strategy(func=strategy_function_two)
 second_strategy.name = "Strategy two"
 second_strategy.execute()
 ```
+
 **[⬆ back to top](#table-of-contents)**
 
 ### Chain of responsibility
-Thiss type of pattern decouples responsibility. Composite is related to this design pattern.
+This type of pattern decouples responsibility. Composite is related to this design pattern.
 - Exercise:
   - Integer value
   - Handlers
@@ -1555,16 +1588,6 @@ requests: List[int] = [2, 5, 30]
 # Send the request
 client.delegate(requests)
 ```
-**[⬆ back to top](#table-of-contents)**
-
-## Other qualities
-**Completeness** depends on how much the software solution meets its requirements.
-
-**Correctness** make the software without errors.
-
-**Coupling** how much different elements of a software are related. If there is strong coupling changes in one element affects another. Less coupling is desirable.
-
-**Cohesion** refers to how independent the software component is. More cohesion is better.
 
 **[⬆ back to top](#table-of-contents)**
 
@@ -1574,22 +1597,17 @@ client.delegate(requests)
 From the root directory of your shell please run following command to start static code assessment (it will check code with linter rules and unit testing):
 
 ```bash
-~ ./run-code-analysis.sh 
+./run-code-analysis.sh 
 ```
 
 ### Release notes
 
-* 0.2.0
-    * Add tests coverage 
-* 0.1.1
-    * Polish documentation
-* 0.1.0
-    * Distribute first version of a project
+Please check [changelog](CHANGELOG.md) file to get more details about actual versions and it's release notes.
 
 ### Meta
 Author – Volodymyr Yahello vyahello@gmail.com
 
-Distributed under the `MIT` license. See [LICENSE](LICENSE.md) for more information.
+Distributed under the `MIT` license. See [license](LICENSE.md) for more information.
 
 You can reach out me at:
 * [vyahello@gmail.com](vyahello@gmail.com)
