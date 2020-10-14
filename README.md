@@ -56,6 +56,7 @@ Here **polymorphism** is often used.
 
 ### Factory method
 Factory method defines an interface for creating an object but defers object instantiation to run time.
+
 ```python
 from abc import ABC, abstractmethod
 
@@ -118,12 +119,14 @@ square: Shape = factory.shape()
 print(square.__class__.__name__)
 print(square.draw())
 ```
+
 Factory encapsulates objects creation. Factory is an object that is specialized in creation of other objects. 
 - Benefits:  
   - Useful when you are not sure what kind of object you will be needed eventually.
   - Application need to decide what class it has to use.
 - Exercise:
   - Pet shop is selling dogs but now it sells cats too.
+
 ```python
 from abc import ABC, abstractmethod
 
@@ -325,6 +328,7 @@ Python has global variables and modules which are **_singletons_**. Singleton al
 Useful if you want to share cached information to multiple objects.
 
 **Classic singleton**
+
 ```python
 from typing import Any, Dict
 
@@ -372,6 +376,7 @@ print(bar_one is bar_two)
 ```
 
 **Borg singleton**
+
 ```python
 from typing import Dict, Any
 
@@ -417,6 +422,7 @@ Builder reduces complexity of building objects.
   - Product: object being built
 - Exercise:
   - Build a car object
+
 ```python
 from abc import ABC, abstractmethod
 
@@ -1427,6 +1433,7 @@ Composite pattern is related to iterator pattern.
   - Will iterate over a certain point based on client input
 
 **Iterator function**
+
 ```python
 from typing import Iterator, Tuple, List
 
@@ -1529,6 +1536,7 @@ This type of pattern decouples responsibility. Composite is related to this desi
     - Successor
   - Concrete Handler
     - Checks if it can handle the request
+
 ```python
 from abc import abstractmethod
 from typing import List
