@@ -13,6 +13,8 @@ from patterns.creational.factory_method import (
 )
 from tests.marker import unittest
 
+pytestmark = unittest
+
 
 @pytest.fixture(scope="module")
 def circle() -> Shape:
@@ -24,12 +26,10 @@ def square() -> Shape:
     return Square()
 
 
-@unittest
 def test_draw_circle(circle: Shape) -> None:
     assert circle.draw() == "Circle.draw"
 
 
-@unittest
 def test_draw_square(square: Shape) -> None:
     assert square.draw() == "Square.draw"
 
