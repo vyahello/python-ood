@@ -38,7 +38,9 @@ class Car(Machine):
         self.engine: str = None
 
     def summary(self) -> str:
-        return "Car details: {} | {} | {}".format(self.model, self.tires, self.engine)
+        return "Car details: {} | {} | {}".format(
+            self.model, self.tires, self.engine
+        )
 
 
 class SkyLarkBuilder(Builder):

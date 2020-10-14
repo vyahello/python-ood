@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import time
 from typing import List, Tuple, Iterator, Type
 
-_sleep: float = 0.2
+_sleep_for: float = 0.2
 
 
 class TestCase(ABC):
@@ -21,13 +21,13 @@ class TestCaseOne(TestCase):
 
     def run(self) -> None:
         print("{:#^20}".format(self._name))
-        time.sleep(_sleep)
+        time.sleep(_sleep_for)
         print("Setting up testcase one")
-        time.sleep(_sleep)
+        time.sleep(_sleep_for)
         print("Running test")
-        time.sleep(_sleep)
+        time.sleep(_sleep_for)
         print("Tearing down")
-        time.sleep(_sleep)
+        time.sleep(_sleep_for)
         print("Test Finished\n")
 
 
@@ -39,13 +39,13 @@ class TestCaseTwo(TestCase):
 
     def run(self) -> None:
         print("{:#^20}".format(self._name))
-        time.sleep(_sleep)
+        time.sleep(_sleep_for)
         print("Setting up testcase two")
-        time.sleep(_sleep)
+        time.sleep(_sleep_for)
         print("Running test")
-        time.sleep(_sleep)
+        time.sleep(_sleep_for)
         print("Tearing down")
-        time.sleep(_sleep)
+        time.sleep(_sleep_for)
         print("Test Finished\n")
 
 
@@ -57,13 +57,13 @@ class TestCaseThree(TestCase):
 
     def run(self) -> None:
         print("{:#^20}".format(self._name))
-        time.sleep(_sleep)
+        time.sleep(_sleep_for)
         print("Setting up testcase three")
-        time.sleep(_sleep)
+        time.sleep(_sleep_for)
         print("Running test")
-        time.sleep(_sleep)
+        time.sleep(_sleep_for)
         print("Tearing down")
-        time.sleep(_sleep)
+        time.sleep(_sleep_for)
         print("Test Finished\n")
 
 
@@ -81,7 +81,11 @@ class TestSuite:
             testcase.run()
 
 
-test_cases: List[TestCase] = [TestCaseOne("TC1"), TestCaseTwo("TC2"), TestCaseThree("TC3")]
+test_cases: List[TestCase] = [
+    TestCaseOne("TC1"),
+    TestCaseTwo("TC2"),
+    TestCaseThree("TC3"),
+]
 test_suite = TestSuite(test_cases)
 test_suite.run()
 

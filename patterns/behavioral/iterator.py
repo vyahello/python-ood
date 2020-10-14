@@ -4,7 +4,9 @@ from typing import Iterator, Tuple, List
 def count_to(count: int) -> Iterator[Tuple[int, str]]:
     """Our iterator implementation."""
     numbers_in_german: List[str] = ["einn", "zwei", "drei", "veir", "funf"]
-    iterator: Iterator[Tuple[int, str]] = zip(range(1, count + 1), numbers_in_german)
+    iterator: Iterator[Tuple[int, str]] = zip(
+        range(1, count + 1), numbers_in_german
+    )
     for position, number in iterator:  # type: int, str
         yield position, number
 

@@ -35,7 +35,9 @@ class Subject:
     @temperature.setter
     def temperature(self, temperature: int) -> None:
         if not isinstance(temperature, int):
-            raise ValueError(f'"{temperature}" value should be an integer data type!')
+            raise ValueError(
+                f'"{temperature}" value should be an integer data type!'
+            )
         self._temperature = temperature
 
 
@@ -43,7 +45,9 @@ class TempObserver:
     """Represents an observer class. Needs to be notified."""
 
     def update(self, subject: Subject) -> None:
-        print(f"Temperature Viewer: {subject.name} has Temperature {subject.temperature}")
+        print(
+            f"Temperature Viewer: {subject.name} has Temperature {subject.temperature}"
+        )
 
 
 subject_one = Subject("Subject One")

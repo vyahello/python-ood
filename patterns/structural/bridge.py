@@ -49,7 +49,9 @@ class DrawCircle(Circle):
 
     def scale(self, percentage: int) -> None:
         if not isinstance(percentage, int):
-            raise ValueError(f'"{percentage}" value should be an integer data type!')
+            raise ValueError(
+                f'"{percentage}" value should be an integer data type!'
+            )
         self._radius *= percentage
 
 

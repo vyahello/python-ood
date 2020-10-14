@@ -29,7 +29,9 @@ class View(ABC):
         pass
 
     @abstractmethod
-    def show_item_information(self, item_type: str, item_name: str, item_info: List[str]) -> None:
+    def show_item_information(
+        self, item_type: str, item_name: str, item_info: List[str]
+    ) -> None:
         """Will look for item information by iterating over key,value pairs yielded by item_info.items()."""
         pass
 
@@ -99,7 +101,9 @@ class ConsoleView(View):
     def capitalizer(string: str) -> str:
         return f"{string[0].upper()}{ string[1:].lower()}"
 
-    def show_item_information(self, item_type: str, item_name: str, item_info: Dict[str, int]) -> None:
+    def show_item_information(
+        self, item_type: str, item_name: str, item_info: Dict[str, int]
+    ) -> None:
         print(f"{item_type.upper()} INFORMATION:")
         printout: str = f"Name: {item_name}"
         for key, value in item_info.items():

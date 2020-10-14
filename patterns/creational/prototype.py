@@ -20,7 +20,9 @@ class Car(Machine):
         self._options: str = "Ex"
 
     def summary(self) -> str:
-        return "Car details: {} | {} | {}".format(self._name, self._color, self._options)
+        return "Car details: {} | {} | {}".format(
+            self._name, self._color, self._options
+        )
 
 
 class Prototype:
