@@ -1,4 +1,4 @@
-![Screenshot](icon.png)
+![Screenshot](logo.png)
 
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
@@ -10,7 +10,7 @@
 [![Docs](https://img.shields.io/badge/docs-github-orange)](https://vyahello.github.io/python-ood)
 
 # Python OOD
-> Describes most useful python object oriented design patterns.
+> The project describes the architecture of the most useful python object oriented design patterns.
 
 ## Tools
 
