@@ -1608,6 +1608,13 @@ From the root directory of your shell please run following command to start stat
 ./run-code-analysis.sh 
 ```
 
+### Commit template
+
+Please use the following command to include gitcommit message template within the project:
+```bash
+git config commit.template .gitcommit.txt
+```
+
 ### Release notes
 
 Please check [changelog](CHANGELOG.md) file to get more details about actual versions and it's release notes.

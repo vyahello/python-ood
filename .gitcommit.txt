@@ -1,0 +1,11 @@
+Title
+
+[Problem]
+.
+
+[Solution]
+.
+
+
+# Please run the following command to activate commit message template:
+# > git config commit.template .gitcommit.txt
