@@ -3,7 +3,7 @@
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Checked with pylint](https://img.shields.io/badge/pylint-checked-blue)](https://www.pylint.org)
-[![Build Status](https://api.travis-ci.org/vyahello/python-ood.svg?branch=master)](https://travis-ci.org/vyahello/python-ood)
+[![Build Status](https://www.travis-ci.com/vyahello/python-ood.svg?branch=master)](https://www.travis-ci.com/github/vyahello/python-ood)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
 [![CodeFactor](https://www.codefactor.io/repository/github/vyahello/python-ood/badge)](https://www.codefactor.io/repository/github/vyahello/python-ood)
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
