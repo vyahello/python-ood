@@ -1,8 +1,30 @@
 from typing import Any, Dict
 
 
+class SingletonMeta(type):
+    """Singleton metaclass implementation."""
+
+    def __init__(cls, cls_name: str, bases: tuple, namespace: dict):
+        cls.__instance = None
+        super().__init__(cls_name, bases, namespace)
+
+    def __call__(cls, *args, **kwargs):
+        if cls.__instance is None:
+            cls.__instance = super().__call__(*args, **kwargs)
+            return cls.__instance
+        return cls.__instance
+
+
+class Single(metaclass=SingletonMeta):
+    """Singleton object."""
+
+    pass
+
+
 class Singleton:
     """Makes all instances as the same object."""
+
+    _instance: "Singleton"
 
     def __new__(cls) -> "Singleton":
         if not hasattr(cls, "_instance"):
@@ -28,6 +50,8 @@ class Bar:
 
     pass
 
+
+print(Single() is Single())
 
 singleton_one: Singleton = Singleton()
 singleton_two: Singleton = Singleton()
