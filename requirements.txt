@@ -7,4 +7,4 @@ pytest-instafail==0.4.1.post0
 coveralls==1.9.2
 coverage==4.5.4
 pylint==2.6.0
-black==20.8b1
+black==24.3.0
